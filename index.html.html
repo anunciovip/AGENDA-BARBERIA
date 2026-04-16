@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edward Barber 💈| Agendar Cita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --neon-main: #00f2fe; --bg-dark: #050505; }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.8s ease; }
+        body { background: var(--bg-dark); color: white; font-family: 'Rajdhani', sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; text-align: center; overflow-x: hidden; }
+
+        /* PANTALLA DE BIENVENIDA */
+        #welcome-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000;
+        }
+        .hide-splash { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+
+        .dynamic-text { color: var(--neon-main) !important; text-shadow: 0 0 15px var(--neon-main); }
+
+        header {
+            width: 100%; padding: 15px 5%; background: rgba(0,0,0,0.95); 
+            border-bottom: 2px solid var(--neon-main);
+            display: flex; justify-content: space-between; align-items: center; 
+            position: sticky; top: 0; z-index: 100;
+        }
+
+        .booking-card { 
+            width: 90%; max-width: 450px; margin: 40px auto; padding: 30px; 
+            background: rgba(10,10,10,0.95); border-radius: 15px; 
+            border: 2px solid var(--neon-main); box-shadow: 0 0 25px var(--neon-main);
+            position: relative; overflow: hidden;
+        }
+        
+        #closed-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); display: none; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 10;
+        }
+        
+        input, select { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white; margin-top: 10px; border-radius: 5px; font-family: 'Rajdhani'; font-size: 1.1rem; text-align: center; }
+
+        .btn-action {
+            width: 100%; padding: 15px; background: transparent; color: var(--neon-main); 
+            border: 2px solid var(--neon-main); font-family: 'Orbitron'; cursor: pointer; 
+            margin-top: 20px; border-radius: 5px; font-weight: bold; text-transform: uppercase;
+        }
+        .btn-action:hover { background: var(--neon-main); color: black; box-shadow: 0 0 30px var(--neon-main); }
+
+        .btn-wa { width: 100%; padding: 15px; background: #25d366; color: white; border: none; font-family: 'Orbitron'; cursor: pointer; display: none; margin-top: 15px; border-radius: 5px; font-weight: bold; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 0 20px #25d366; }
+
+        #admin-panel {
+            position: fixed; top: 0; right: -100%; width: 100%; max-width: 350px; height: 100vh;
+            background: rgba(10,10,10,0.98); border-left: 2px solid var(--neon-main);
+            z-index: 2000; padding: 30px 20px; transition: 0.5s; overflow-y: auto; text-align: left;
+        }
+        #admin-panel.active { right: 0; }
+
+        footer { width: 100%; padding: 30px; text-align: center; opacity: 0.6; font-size: 0.8rem; border-top: 1px solid #222; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <div id="welcome-screen">
+        <h1 class="dynamic-text" style="font-size: 2.8rem; font-family:'Orbitron';">EDWARD BARBER 💈</h1>
+        <p style="letter-spacing: 3px; margin-bottom: 30px; color: #aaa;">ZUMPANGO DEL RÍO, GRO.</p>
+        <button class="btn-action" style="width:auto; padding:15px 50px;" onclick="document.getElementById('welcome-screen').classList.add('hide-splash')">SOLICITAR TURNO</button>
+    </div>
+
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop'); background-size: cover; z-index: -2;"></div>
+
+    <header>
+        <h2 style="font-family:'Orbitron'; font-size:0.9rem;">EDWARD BARBER 💈</h2>
+        <div onclick="openAdmin()" style="cursor:pointer;" class="dynamic-text"><i class="fas fa-fingerprint" style="font-size: 1.4rem;"></i></div>
+    </header>
+
+    <div id="admin-panel">
+        <div class="admin-title dynamic-text" style="font-family:'Orbitron'; margin-bottom:20px;">EDUARDO PRIVATE<i class="fas fa-times" onclick="closeAdmin()" style="float:right; cursor:pointer;"></i></div>
+        
+        <div style="margin-bottom: 20px; padding: 10px; border: 1px solid var(--neon-main); border-radius: 10px;">
+            <p style="font-size: 0.7rem; color: #888;">ESTADO DEL LOCAL:</p>
+            <button id="btnStatusMaster" onclick="toggleShopStatus()" class="btn-action" style="margin-top:5px; padding: 10px; font-size: 0.8rem;">ACTUALIZANDO...</button>
+        </div>
+
+        <div id="monitorCurr" style="margin-bottom:20px; font-family:'Orbitron'; font-size: 0.8rem;">CLIENTE: --</div>
+        <button onclick="finishProcess()" class="btn-action" style="background:var(--neon-main); color:black; margin-bottom:10px;">ATENDER SIGUIENTE</button>
+        <button onclick="location.reload()" class="btn-action" style="font-size: 0.7rem; padding: 5px;">RECARGAR LA PAGINA WEB</button>
+        <div id="admin-list" style="margin-top:20px;"></div>
+    </div>
+
+    <div class="booking-card" id="mainCard">
+        <div id="closed-overlay">
+            <i class="fas fa-door-closed" style="font-size: 3rem; color: var(--neon-main); margin-bottom: 15px;"></i>
+            <h2 class="dynamic-text" style="font-family:'Orbitron';">SERVICIO CERRADO</h2>
+            <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">CERRADO TEMPORALMENTE.</p>
+        </div>
+
+        <h3 class="dynamic-text" style="font-family:'Orbitron';">💈 AGENDA TU CITA 💈</h3>
+        <input type="text" id="uName" placeholder="Escribe tu nombre">
+        <input type="date" id="uDate" onchange="updateAvailableHours()">
+        <select id="uTime" onchange="resetBtn()"><option disabled selected>Selecciona la fecha primero</option></select>
+        
+        <div id="resMsg" style="text-align:center; margin-top:15px; font-family:'Orbitron'; font-weight:bold;"></div>
+        
+        <button class="btn-action" id="btnCheck" onclick="checkDate()">VERIFICAR DISPONIBILIDAD</button>
+        <button onclick="sendToWhatsApp()" class="btn-wa" id="btnWa"><i class="fab fa-whatsapp"></i> AGENDAR Y ENVIAR AL GRUPO</button>
+
+        <div style="margin-top: 20px; font-size: 0.8rem; border: 1px dashed var(--neon-main); padding: 10px; border-radius: 10px; color: #ccc;">
+            <i class="fas fa-clock"></i> <b>AVISO IMPORTANTE:</b> Llegar 5 minutos antes. Si llegas tarde, perderás tu lugar y tendras que agendar nuevamente.
+        </div>
+    </div>
+
+    <div style="background: rgba(255,255,255,0.05); padding: 15px; width: 90%; max-width: 450px; border-radius: 10px; border: 1px solid var(--neon-main);">
+        <h4 class="dynamic-text" style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:5px;">HORARIOS DE ATENCIÓN</h4>
+        <p style="font-size: 0.9rem; color: #ccc;">Lun-Vie: 4:00 PM - 8:00 PM</p>
+        <p style="font-size: 0.9rem; color: #ccc;">Sábados: 11:00 AM - 4:00 PM</p>
+    </div>
+
+    <footer>© 2026 EDWARD BARBER STUDIO | ZUMPANGO DEL RÍO</footer>
+
+    <script>
+        // CONFIGURACIÓN
+        const DB_URL = "https://edward-barber-default-rtdb.firebaseio.com/"; 
+        const GROUP_LINK = "https://chat.whatsapp.com/IPQTvnT3kDV9zVB8701mbU";
+        const PASS = "9999";
+
+        // Colores Neón
+        const colors = ['#00f2fe', '#ff0055', '#0f9', '#ff3131', '#bc13fe', '#fbff00'];
+        let colorIndex = 0;
+        setInterval(() => {
+            document.documentElement.style.setProperty('--neon-main', colors[colorIndex]);
+            colorIndex = (colorIndex + 1) % colors.length;
+        }, 3000);
+
+        // --- LÓGICA DE FIREBASE ---
+        async function getDB() { 
+            const r = await fetch(DB_URL + ".json"); 
+            return await r.json() || { citas: {}, status: "open", chair: "--" }; 
+        }
+
+        async function syncStatus() {
+            const data = await getDB();
+            const isClosed = data.status === "closed";
+            document.getElementById('closed-overlay').style.display = isClosed ? "flex" : "none";
+            const btn = document.getElementById('btnStatusMaster');
+            btn.innerText = isClosed ? "SISTEMA: CERRADO ❌" : "SISTEMA: ABIERTO ✅";
+            btn.style.color = isClosed ? "#ff3131" : "#0f9";
+            document.getElementById('monitorCurr').innerText = "Silla: " + (data.chair || "--");
+        }
+
+        async function toggleShopStatus() {
+            const data = await getDB();
+            const newStatus = data.status === "open" ? "closed" : "open";
+            await fetch(DB_URL + "status.json", { method: 'PUT', body: JSON.stringify(newStatus) });
+            syncStatus();
+        }
+
+        async function updateAvailableHours() {
+            const dInput = document.getElementById('uDate').value;
+            const select = document.getElementById('uTime');
+            const day = new Date(dInput + 'T00:00:00').getUTCDay();
+            const data = await getDB();
+            
+            resetBtn();
+            if(day === 0) { alert("Domingos cerrado"); select.innerHTML = '<option disabled selected>Cerrado</option>'; return; }
+            
+            let slots = (day >= 1 && day <= 5) ? 
+                ["04:00 PM","05:00 PM","06:00 PM","07:00 PM","08:00 PM"] : 
+                ["11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM"];
+            
+            select.innerHTML = '<option disabled selected>Selecciona hora</option>';
+            slots.forEach(s => {
+                const busy = data.citas && Object.values(data.citas).some(c => c.date === dInput && c.time === s);
+                let opt = document.createElement('option');
+                opt.value = s; opt.text = busy ? s + " (OCUPADO)" : s; opt.disabled = busy;
+                if(busy) opt.style.color = "#555";
+                select.add(opt);
+            });
+        }
+
+        async function checkDate() {
+            const n = document.getElementById('uName').value;
+            const d = document.getElementById('uDate').value;
+            const t = document.getElementById('uTime').value;
+            if(!n || !d || !t) return alert("Completa los datos.");
+            
+            const data = await getDB();
+            const busy = data.citas && Object.values(data.citas).some(c => c.date === d && c.time === t);
+            if(busy) { alert("¡Horario ocupado!"); updateAvailableHours(); return; }
+
+            document.getElementById('resMsg').innerText = "✅ DISPONIBLE";
+            document.getElementById('btnWa').style.display = "flex";
+            document.getElementById('btnCheck').style.display = "none";
+        }
+
+        async function sendToWhatsApp() {
+            const n = document.getElementById('uName').value;
+            const d = document.getElementById('uDate').value;
+            const t = document.getElementById('uTime').value;
+            
+            const msg = `💎 *EDWARD BARBER | RESERVACIÓN VIP* 💎\n━━━━━━━━━━━━━━━━━━\n👤 *CLIENTE:* ${n.toUpperCase()}\n📅 *FECHA:* ${d.split('-').reverse().join('/')}\n⏰ *HORA:* ${t}\n━━━━━━━━━━━━━━━━━━\n⚠️ *Llegar 5 min antes o se cancela.* ✂️🔥`;
+
+            try {
+                // Guardar en Firebase
+                await fetch(DB_URL + "citas.json", { method: 'POST', body: JSON.stringify({ name: n, date: d, time: t }) });
+                // Copiar mensaje
+                await navigator.clipboard.writeText(msg);
+                alert("✅ ¡DATOS COPIADOS! \n\nAhora pégalos en el grupo de WhatsApp.");
+                window.location.href = GROUP_LINK;
+            } catch (e) {
+                window.location.href = GROUP_LINK;
+            }
+        }
+
+        // --- ADMIN ---
+        function openAdmin() { if(prompt("CLAVE:") === PASS) { document.getElementById('admin-panel').classList.add('active'); renderAdmin(); } }
+        function closeAdmin() { document.getElementById('admin-panel').classList.remove('active'); }
+        
+        async function renderAdmin() {
+            const data = await getDB();
+            const list = document.getElementById('admin-list');
+            list.innerHTML = "";
+            if(data.citas) {
+                const sorted = Object.entries(data.citas).sort((a,b) => a[1].date.localeCompare(b[1].date));
+                sorted.forEach(([id, a]) => {
+                    list.innerHTML += `<div style="background:#111; padding:10px; margin-bottom:5px; border:1px solid #333; border-radius:5px;">${a.date} | ${a.time}<br><b>${a.name}</b> <i onclick="del('${id}')" class="fas fa-trash" style="color:red; float:right; cursor:pointer;"></i></div>`;
+                });
+            }
+            syncStatus();
+        }
+
+        async function finishProcess() {
+            const data = await getDB();
+            if(data.citas) {
+                const firstId = Object.keys(data.citas)[0];
+                const firstName = data.citas[firstId].name;
+                await fetch(DB_URL + "chair.json", { method: 'PUT', body: JSON.stringify(firstName) });
+                await del(firstId);
+            }
+        }
+
+        async function del(id) { await fetch(DB_URL + `citas/${id}.json`, { method: 'DELETE' }); renderAdmin(); }
+        
+        function resetBtn() { document.getElementById('btnWa').style.display="none"; document.getElementById('btnCheck').style.display="block"; document.getElementById('resMsg').innerText=""; }
+        
+        document.getElementById('uDate').setAttribute('min', new Date().toISOString().split('T')[0]);
+        setInterval(syncStatus, 5000); 
+        syncStatus();
+    </script>
+</body>
+</html>
