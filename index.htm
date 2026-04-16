@@ -108,7 +108,7 @@
         <div id="resMsg" style="text-align:center; margin-top:15px; font-family:'Orbitron'; font-weight:bold;"></div>
         
         <button class="btn-action" id="btnCheck" onclick="checkDate()">VERIFICAR DISPONIBILIDAD</button>
-        <button onclick="sendToWhatsApp()" class="btn-wa" id="btnWa"><i class="fab fa-whatsapp"></i> AGENDAR Y ENVIAR AL GRUPO</button>
+        <button onclick="sendToWhatsApp()" class="btn-wa" id="btnWa"><i class="fab fa-whatsapp"></i> AGENDAR Y ENVIAR WHATSAPP</button>
 
         <div style="margin-top: 20px; font-size: 0.8rem; border: 1px dashed var(--neon-main); padding: 10px; border-radius: 10px; color: #ccc;">
             <i class="fas fa-clock"></i> <b>AVISO IMPORTANTE:</b> Llegar 5 minutos antes. Si llegas tarde, perderás tu lugar y tendras que agendar nuevamente.
@@ -126,10 +126,9 @@
     <script>
         // CONFIGURACIÓN
         const DB_URL = "https://edward-barber-default-rtdb.firebaseio.com/"; 
-        const GROUP_LINK = "https://chat.whatsapp.com/IPQTvnT3kDV9zVB8701mbU";
         const PASS = "9999";
+        const PHONE = "527471957726";
 
-        // Colores Neón
         const colors = ['#00f2fe', '#ff0055', '#0f9', '#ff3131', '#bc13fe', '#fbff00'];
         let colorIndex = 0;
         setInterval(() => {
@@ -137,7 +136,6 @@
             colorIndex = (colorIndex + 1) % colors.length;
         }, 3000);
 
-        // --- LÓGICA DE FIREBASE ---
         async function getDB() { 
             const r = await fetch(DB_URL + ".json"); 
             return await r.json() || { citas: {}, status: "open", chair: "--" }; 
@@ -169,9 +167,10 @@
             resetBtn();
             if(day === 0) { alert("Domingos cerrado"); select.innerHTML = '<option disabled selected>Cerrado</option>'; return; }
             
+            // Medias horas integradas
             let slots = (day >= 1 && day <= 5) ? 
-                ["04:00 PM","05:00 PM","06:00 PM","07:00 PM","08:00 PM"] : 
-                ["11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM"];
+                ["04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM", "06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM", "08:00 PM"] : 
+                ["11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM"];
             
             select.innerHTML = '<option disabled selected>Selecciona hora</option>';
             slots.forEach(s => {
@@ -187,7 +186,11 @@
             const n = document.getElementById('uName').value;
             const d = document.getElementById('uDate').value;
             const t = document.getElementById('uTime').value;
-            if(!n || !d || !t) return alert("Completa los datos.");
+
+            // VALIDACIÓN: No permite avanzar si falta algún dato
+            if(!n || !d || !t || t === "Selecciona hora" || t === "Selecciona la fecha primero") { 
+                return alert("⚠️ Por favor, llena tu nombre, selecciona la fecha y la hora antes de verificar."); 
+            }
             
             const data = await getDB();
             const busy = data.citas && Object.values(data.citas).some(c => c.date === d && c.time === t);
@@ -203,21 +206,31 @@
             const d = document.getElementById('uDate').value;
             const t = document.getElementById('uTime').value;
             
-            const msg = `💎 *EDWARD BARBER | RESERVACIÓN VIP* 💎\n━━━━━━━━━━━━━━━━━━\n👤 *CLIENTE:* ${n.toUpperCase()}\n📅 *FECHA:* ${d.split('-').reverse().join('/')}\n⏰ *HORA:* ${t}\n━━━━━━━━━━━━━━━━━━\n⚠️ *Llegar 5 min antes o se cancela.* ✂️🔥`;
+            // Segunda validación de seguridad
+            if(!n || !d || !t) return alert("Faltan datos para agendar.");
+
+            const fechaF = d.split('-').reverse().join('/');
+
+            // DISEÑO PROFESIONAL CON EMOJIS
+            const msg = `*¡RESERVACIÓN CONFIRMADA!* ✅%0A` +
+                        `*💈EDWARD BARBER STUDIO💈*%0A` +
+                        `──────────────────%0A%0A` +
+                        `📋 *DETALLES DEL TURNO:*%0A%0A` +
+                        `👤 *CLIENTE:* ${n.toUpperCase()}%0A` +
+                        `📅 *FECHA:* ${fechaF}%0A` +
+                        `⏰ *HORARIO:* ${t}%0A%0A` +
+                        `──────────────────%0A` +
+                        `📍 *UBICACIÓN:* Zumpango, Gro.%0A%0A` +
+                        `✨ _¡Gracias por tu preferencia! Te pedimos puntualidad para brindarte el mejor servicio._ ✨`;
 
             try {
-                // Guardar en Firebase
                 await fetch(DB_URL + "citas.json", { method: 'POST', body: JSON.stringify({ name: n, date: d, time: t }) });
-                // Copiar mensaje
-                await navigator.clipboard.writeText(msg);
-                alert("✅ ¡DATOS COPIADOS! \n\nAhora pégalos en el grupo de WhatsApp.");
-                window.location.href = GROUP_LINK;
+                window.location.href = `https://api.whatsapp.com/send?phone=${PHONE}&text=${msg}`;
             } catch (e) {
-                window.location.href = GROUP_LINK;
+                window.location.href = `https://api.whatsapp.com/send?phone=${PHONE}&text=${msg}`;
             }
         }
 
-        // --- ADMIN ---
         function openAdmin() { if(prompt("CLAVE:") === PASS) { document.getElementById('admin-panel').classList.add('active'); renderAdmin(); } }
         function closeAdmin() { document.getElementById('admin-panel').classList.remove('active'); }
         
