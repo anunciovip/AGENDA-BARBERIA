@@ -54,6 +54,8 @@
 
         .btn-wa { width: 100%; padding: 15px; background: #25d366; color: white; border: none; font-family: 'Orbitron'; cursor: pointer; display: none; margin-top: 15px; border-radius: 5px; font-weight: bold; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 0 20px #25d366; }
 
+        .btn-maps { width: 100%; padding: 12px; background: #4285F4; color: white; border: none; font-family: 'Orbitron'; cursor: pointer; display: flex; margin-top: 10px; border-radius: 5px; font-weight: bold; justify-content: center; align-items: center; gap: 10px; text-decoration: none; font-size: 0.8rem; }
+
         #admin-panel {
             position: fixed; top: 0; right: -100%; width: 100%; max-width: 350px; height: 100vh;
             background: rgba(10,10,10,0.98); border-left: 2px solid var(--neon-main);
@@ -115,6 +117,16 @@
         </div>
     </div>
 
+    <div style="background: rgba(255,255,255,0.05); padding: 20px; width: 90%; max-width: 450px; border-radius: 10px; border: 1px solid var(--neon-main); margin-bottom: 20px;">
+        <h4 class="dynamic-text" style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:10px;">CONTACTO Y UBICACIÓN</h4>
+        <p style="font-size: 0.9rem; color: #fff; margin-bottom: 5px;"><i class="fas fa-map-marker-alt" style="color: var(--neon-main);"></i> Calle 16 de Septiembre No.32, Barrio Señor Santiago</p>
+        <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;"><i class="fas fa-envelope" style="color: var(--neon-main);"></i> abarcaeduardo26@gmail.com</p>
+        
+        <a href="https://www.google.com/maps/search/?api=1&query=Calle+16+de+Septiembre+32+Barrio+Señor+Santiago+Zumpango+del+Rio+Guerrero" target="_blank" class="btn-maps">
+            <i class="fas fa-location-arrow"></i> CÓMO LLEGAR (GOOGLE MAPS)
+        </a>
+    </div>
+
     <div style="background: rgba(255,255,255,0.05); padding: 15px; width: 90%; max-width: 450px; border-radius: 10px; border: 1px solid var(--neon-main);">
         <h4 class="dynamic-text" style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:5px;">HORARIOS DE ATENCIÓN</h4>
         <p style="font-size: 0.9rem; color: #ccc;">Lun-Vie: 4:00 PM - 9:00 PM</p>
@@ -167,7 +179,6 @@
             resetBtn();
             if(day === 0) { alert("Domingos cerrado"); select.innerHTML = '<option disabled selected>Cerrado</option>'; return; }
             
-            // Medias horas integradas
             let slots = (day >= 1 && day <= 5) ? 
                 ["04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM", "06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM", "08:00 PM", "08:30 PM"] : 
                 ["11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM"];
@@ -187,7 +198,6 @@
             const d = document.getElementById('uDate').value;
             const t = document.getElementById('uTime').value;
 
-            // VALIDACIÓN: No permite avanzar si falta algún dato
             if(!n || !d || !t || t === "Selecciona hora" || t === "Selecciona la fecha primero") { 
                 return alert("⚠️ Por favor, llena tu nombre, selecciona la fecha y la hora antes de verificar."); 
             }
@@ -206,22 +216,18 @@
             const d = document.getElementById('uDate').value;
             const t = document.getElementById('uTime').value;
             
-            // Segunda validación de seguridad
             if(!n || !d || !t) return alert("Faltan datos para agendar.");
-
             const fechaF = d.split('-').reverse().join('/');
-
-            // DISEÑO PROFESIONAL CON EMOJIS
             const msg = `*¡RESERVACIÓN CONFIRMADA!* ✅%0A` +
                         `*💈EDWARD BARBER STUDIO💈*%0A` +
-                        `──────────────────%0A%0A` +
-                        `📋 *DETALLES DEL TURNO:*%0A%0A` +
-                        `👤 *CLIENTE:* ${n.toUpperCase()}%0A` +
-                        `📅 *FECHA:* ${fechaF}%0A` +
-                        `⏰ *HORARIO:* ${t}%0A%0A` +
-                        `──────────────────%0A` +
-                        `📍 *UBICACIÓN:* Zumpango, Gro.%0A%0A` +
-                        `✨ _¡Gracias por tu preferencia! Te pedimos puntualidad para brindarte el mejor servicio._ ✨`;
+                        `*──────────────────*%0A%0A` +
+                        `*📋 DETALLES DEL TURNO:*%0A%0A` +
+                        `*👤 CLIENTE:* ${n.toUpperCase()}%0A` +
+                        `*📅 FECHA:* ${fechaF}%0A` +
+                        `*⏰ HORARIO:* ${t}%0A%0A` +
+                        `*──────────────────*%0A` +
+                        `*📍 UBICACIÓN:* Zumpango, Gro.%0A%0A` +
+                        `*✨ ¡Gracias por tu preferencia! Te pedimos puntualidad para brindarte el mejor servicio. ✨*`;
 
             try {
                 await fetch(DB_URL + "citas.json", { method: 'POST', body: JSON.stringify({ name: n, date: d, time: t }) });
