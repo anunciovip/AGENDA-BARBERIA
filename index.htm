@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edward Barber 💈| Agendar Cita</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --neon-main: #00f2fe; --bg-dark: #050505; }
@@ -31,7 +31,7 @@
         }
 
         .booking-card { 
-            width: 90%; max-width: 450px; margin: 40px auto; padding: 30px; 
+            width: 90%; max-width: 430px; margin: 30px auto; padding: 25px; 
             background: rgba(10,10,10,0.95); border-radius: 15px; 
             border: 2px solid var(--neon-main); box-shadow: 0 0 25px var(--neon-main);
             position: relative; overflow: hidden;
@@ -64,6 +64,97 @@
         #admin-panel.active { right: 0; }
 
         footer { width: 100%; padding: 30px; text-align: center; opacity: 0.6; font-size: 0.8rem; border-top: 1px solid #222; margin-top: auto; }
+
+        /* --- CONTENEDOR TEMÁTICO TRICOLOR --- */
+        .patria-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin: 0px 0 10px 0;
+            background: rgba(255, 255, 255, 0.03); 
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .flag-image {
+            width: 85px; 
+            height: auto;
+            border-radius: 0px !important; /* Esquinas rectas en pico */
+            border: 1px solid transparent; /* Bordes transparentes que se adaptan al fondo */
+            background-clip: padding-box;
+            animation: lightWave 3s ease-in-out infinite alternate, tricolor-neon-glow 4s infinite linear;
+        }
+
+        .soccer-render {
+            width: 24px; 
+            height: auto;
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
+            animation: spinBall 9s linear infinite;
+        }
+
+        .viva-mexico-neon {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem; 
+            letter-spacing: 2px;
+            margin: 1px 0;
+            animation: tricolor-shift 5s infinite linear;
+        }
+
+        /* 📣 TEXTO PUBLICITARIO ESTILIZADO COMPACTO */
+        .promo-mundial {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.88rem; 
+            font-weight: 500;
+            line-height: 1.35;
+            color: #d5d5d5;
+            margin: 5px auto 15px auto;
+            padding: 0px 5px 0px 12px;
+            max-width: 88%;
+            border-left: 2px solid var(--neon-main); 
+            text-align: left; 
+            letter-spacing: 0.2px;
+        }
+        
+        .promo-mundial .frase-principal {
+            font-style: italic;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .promo-mundial .llamado-accion {
+            color: var(--neon-main);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            display: block;
+        }
+
+        /* ANIMACIONES */
+        @keyframes lightWave {
+            0% { transform: scale(0.97) rotate(-0.5deg); }
+            100% { transform: scale(1.03) rotate(0.5deg); }
+        }
+        @keyframes spinBall {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes tricolor-shift {
+            0%, 100% { color: #00FF66; text-shadow: 0 0 6px #00FF66, 0 0 12px #00CC55; }
+            33% { color: #FFFFFF; text-shadow: 0 0 6px #FFFFFF, 0 0 12px #BBBBBB; }
+            66% { color: #FF2E2E; text-shadow: 0 0 6px #FF2E2E, 0 0 12px #CC0000; }
+        }
+        
+        /* 🔥 EFECTO LUCES NEÓN QUE SALEN DE CADA BORDE (TRICOLOR INTERMITENTE) */
+        @keyframes tricolor-neon-glow {
+            0%, 100% { filter: drop-shadow(0 0 5px #00FF66) drop-shadow(0 0 12px #00FF66); }
+            33% { filter: drop-shadow(0 0 5px #FFFFFF) drop-shadow(0 0 12px #FFFFFF); }
+            66% { filter: drop-shadow(0 0 5px #FF2E2E) drop-shadow(0 0 12px #FF2E2E); }
+        }
     </style>
 </head>
 <body>
@@ -102,6 +193,35 @@
             <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">CERRADO TEMPORALMENTE.</p>
         </div>
 
+        <div class="patria-container">
+            <!-- 1. BANDERA CON BORDES TRANSPARENTES Y LUCES NEÓN INTEGRADAS -->
+            <img class="flag-image" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1f2-1f1fd.png" alt="Bandera de México">
+
+            <!-- 2. TEXTO ¡VIVA MÉXICO! -->
+            <div class="viva-mexico-neon">¡VIVA MÉXICO! 🇲🇽</div>
+            
+            <!-- 3. BALÓN -->
+            <svg class="soccer-render" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="46" fill="#FAFAFA" stroke="#111" stroke-width="2.5"/>
+                <polygon points="50,34 64,44 59,61 41,61 36,44" fill="#151515" stroke="#111" stroke-width="1.5"/>
+                <line x1="50" y1="34" x2="50" y2="12" stroke="#111" stroke-width="2"/>
+                <line x1="64" y1="44" x2="84" y2="34" stroke="#111" stroke-width="2"/>
+                <line x1="59" y1="61" x2="73" y2="80" stroke="#111" stroke-width="2"/>
+                <line x1="41" y1="61" x2="27" y2="80" stroke="#111" stroke-width="2"/>
+                <line x1="36" y1="44" x2="16" y2="34" stroke="#111" stroke-width="2"/>
+                <polygon points="50,12 38,4 62,4" fill="#151515" stroke="#111" stroke-width="1.5"/>
+                <polygon points="84,34 94,48 88,64 74,54" fill="#151515" stroke="#111" stroke-width="1.5"/>
+                <polygon points="16,34 6,48 12,64 26,54" fill="#151515" stroke="#111" stroke-width="1.5"/>
+                <polygon points="27,80 40,94 60,94 73,80" fill="#151515" stroke="#111" stroke-width="1.5"/>
+            </svg>
+        </div>
+
+        <!-- TEXTO PUBLICITARIO ESTILIZADO -->
+        <div class="promo-mundial">
+            <span class="frase-principal">"No te pierdas del mundial sin antes un corte de pelo para verte genial..."</span>
+            <span class="llamado-accion"><i class="fas fa-calendar-alt"></i> Agenda ahora para verte espectacular</span>
+        </div>
+
         <h3 class="dynamic-text" style="font-family:'Orbitron';">💈 AGENDA TU CITA 💈</h3>
         <input type="text" id="uName" placeholder="Escribe tu nombre">
         <input type="date" id="uDate" onchange="updateAvailableHours()">
@@ -113,11 +233,11 @@
         <button onclick="sendToWhatsApp()" class="btn-wa" id="btnWa"><i class="fab fa-whatsapp"></i> AGENDAR Y ENVIAR WHATSAPP</button>
 
         <div style="margin-top: 20px; font-size: 0.8rem; border: 1px dashed var(--neon-main); padding: 10px; border-radius: 10px; color: #ccc;">
-            <i class="fas fa-clock"></i> <b>AVISO IMPORTANTE:</b> Llegar 5 minutos antes. Si llegas tarde, perderás tu lugar y tendras que agendar nuevamente ¡AGENDAR SOLO UNA VEZ POR PERSONA!.
+            <i class="fas fa-clock"></i> <b>AVISO IMPORTANTE:</b> Llegar 5 minutos antes. Si llegas tarde, perderás tu lugar y tendrás que agendar nuevamente.
         </div>
     </div>
 
-    <div style="background: rgba(255,255,255,0.05); padding: 20px; width: 90%; max-width: 450px; border-radius: 10px; border: 1px solid var(--neon-main); margin-bottom: 20px;">
+    <div style="background: rgba(255,255,255,0.05); padding: 20px; width: 90%; max-width: 430px; border-radius: 10px; border: 1px solid var(--neon-main); margin-bottom: 20px;">
         <h4 class="dynamic-text" style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:10px;">CONTACTO Y UBICACIÓN</h4>
         <p style="font-size: 0.9rem; color: #fff; margin-bottom: 5px;"><i class="fas fa-map-marker-alt" style="color: var(--neon-main);"></i> Calle 16 de Septiembre No.32, Barrio Señor Santiago</p>
         <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;"><i class="fas fa-envelope" style="color: var(--neon-main);"></i> abarcaeduardo26@gmail.com</p>
@@ -127,7 +247,7 @@
         </a>
     </div>
 
-    <div style="background: rgba(255,255,255,0.05); padding: 15px; width: 90%; max-width: 450px; border-radius: 10px; border: 1px solid var(--neon-main);">
+    <div style="background: rgba(255,255,255,0.05); padding: 15px; width: 90%; max-width: 430px; border-radius: 10px; border: 1px solid var(--neon-main);">
         <h4 class="dynamic-text" style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:5px;">HORARIOS DE ATENCIÓN</h4>
         <p style="font-size: 0.9rem; color: #ccc;">Lun-Vie: 4:00 PM - 9:00 PM</p>
         <p style="font-size: 0.9rem; color: #ccc;">Sábados: 11:00 AM - 4:00 PM</p>
@@ -136,7 +256,6 @@
     <footer>© 2026 EDWARD BARBER STUDIO | ZUMPANGO DEL RÍO</footer>
 
     <script>
-        // CONFIGURACIÓN
         const DB_URL = "https://edward-barber-default-rtdb.firebaseio.com/"; 
         const PASS = "9999";
         const PHONE = "527471957726";
