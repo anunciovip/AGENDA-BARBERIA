@@ -3,13 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edward Barber 💈| Agendar Cita</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <title>Edward Barber 💈 | Agendar Cita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --neon-main: #00f2fe; --bg-dark: #050505; }
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.8s ease; }
-        body { background: var(--bg-dark); color: white; font-family: 'Rajdhani', sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; text-align: center; overflow-x: hidden; }
+        /* REGISTRO DE LA PROPIEDAD PARA ANIMAR EL ÁNGULO DE LAS DOS SERPIENTES */
+        @property --gradient-angle {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        :root { 
+            --clean-white: #f0fdfa;
+            --bg-dark: #050505; 
+            --card-bg: #0a0a0a;
+            
+            /* Colores de la secuencia neón */
+            --c1: #00f2fe;
+            --c2: #ff0055;
+            --c3: #00ff99;
+            --c4: #ff3131;
+            --c5: #bc13fe;
+            --c6: #fbff00;
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            transition: background 0.4s ease, transform 0.3s ease;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        input, select { user-select: text; }
+        
+        body { 
+            background: var(--bg-dark); 
+            color: white; 
+            font-family: 'Rajdhani', sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh; 
+            overflow-x: hidden;
+            font-size: 0.95rem;
+        }
+
+        /* CANVAS PARA LA LLUVIA DE BALONES */
+        #hacker-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.35;
+        }
 
         /* PANTALLA DE BIENVENIDA */
         #welcome-screen {
@@ -21,135 +73,323 @@
         }
         .hide-splash { transform: translateY(-100%); opacity: 0; pointer-events: none; }
 
-        .dynamic-text { color: var(--neon-main) !important; text-shadow: 0 0 15px var(--neon-main); }
+        .dynamic-text { 
+            animation: textNeonColorShift 12s infinite linear;
+        }
+        .hud-bracket { font-family: 'Orbitron'; animation: textNeonColorShift 12s infinite linear; opacity: 0.8; margin: 0 2px; }
 
         header {
-            width: 100%; padding: 15px 5%; background: rgba(0,0,0,0.95); 
-            border-bottom: 2px solid var(--neon-main);
+            width: 100%; padding: 15px 5%; background: rgba(0, 0, 0, 0.95); 
+            animation: borderBottomNeonShift 12s infinite linear;
             display: flex; justify-content: space-between; align-items: center; 
             position: sticky; top: 0; z-index: 100;
         }
 
-        .booking-card { 
-            width: 90%; max-width: 430px; margin: 30px auto; padding: 25px; 
-            background: rgba(10,10,10,0.95); border-radius: 15px; 
-            border: 2px solid var(--neon-main); box-shadow: 0 0 25px var(--neon-main);
-            position: relative; overflow: hidden;
+        /* --- CONTENEDORES CON EFECTO: 2 SERPIENTES FLUIDAS DE ESQUINA A ESQUINA --- */
+        .cyber-panel, .business-card-block { 
+            width: 90%; max-width: 430px; margin: 20px auto; padding: 20px 16px; 
+            background: var(--card-bg);
+            border-radius: 15px;
+            position: relative; 
         }
-        
+
+        /* Estilo base para los bloques individuales de contacto */
+        .business-card-block {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 auto 18px auto; /* Separados individualmente */
+            padding: 16px 14px;
+        }
+        .business-card-block:hover {
+            background: rgba(255, 255, 255, 0.02);
+            transform: translateY(-2px);
+        }
+
+        /* Diseño de las dos serpientes persiguiéndose (Grosor aumentado a 3px para mayor impacto) */
+        .cyber-panel::before,
+        .cyber-panel::after,
+        .hud-sub-panel::before,
+        .hud-sub-panel::after,
+        .business-card-block::before,
+        .business-card-block::after {
+            content: "";
+            position: absolute;
+            inset: -3px; /* Grosor exacto de 3px */
+            z-index: -1;
+            background: conic-gradient(
+                from var(--gradient-angle),
+                var(--current-neon-color, var(--c1)) 0deg,
+                transparent 25%,
+                transparent 50%,
+                var(--current-neon-color, var(--c1)) 180deg,
+                transparent 225%,
+                transparent 100%
+            );
+            border-radius: inherit;
+            animation: rotation_neon 4s linear infinite, panelNeonColorShift 12s infinite linear;
+        }
+
+        /* Brillo difuminado de fondo de las dos serpientes */
+        .cyber-panel::after,
+        .hud-sub-panel::after,
+        .business-card-block::after {
+            filter: blur(10px);
+            opacity: 0.55;
+        }
+
+        /* MICRO HUD ADAPTADO */
+        .hud-status-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .hud-sub-panel {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 6px 10px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 55px;
+            position: relative;
+        }
+
+        /* Ajuste de escala para subpaneles pequeños */
+        .hud-sub-panel::before,
+        .hud-sub-panel::after {
+            inset: -2px;
+        }
+
+        .hud-sub-panel h4 {
+            font-family: 'Orbitron';
+            font-size: 0.55rem;
+            letter-spacing: 0.5px;
+            text-align: left;
+            margin-bottom: 2px;
+            animation: textNeonColorShift 12s infinite linear;
+        }
+
+        .hud-counter-value {
+            font-family: 'Orbitron';
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .hud-live-tag {
+            font-size: 0.5rem;
+            font-family: 'Orbitron';
+            color: #00ff66;
+            animation: pulseGlow 1s infinite alternate;
+        }
+
+        .ticker-viewport {
+            height: 22px; 
+            overflow: hidden;
+            position: relative;
+            border-left: 2px solid transparent;
+            padding-left: 4px;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            animation: borderLeftNeonShift 12s infinite linear;
+        }
+
+        .ticker-slot {
+            font-family: 'Orbitron';
+            font-size: 0.65rem;
+            font-weight: 700;
+            display: none;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ticker-slot.active {
+            display: flex;
+            animation: slideInHUD 0.3s ease-out;
+        }
+
         #closed-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); display: none; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 10;
+            position: absolute; top: -3px; left: -3px; width: calc(100% + 6px); height: calc(100% + 6px);
+            background: rgba(5, 5, 5, 0.98); display: none; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 10; border-radius: 15px;
+        }
+
+        /* FORMULARIOS */
+        input, select { 
+            width: 100%; padding: 12px; background: #000; 
+            border: 1px solid #222; color: white; margin-top: 10px; 
+            border-radius: 5px; font-family: 'Rajdhani'; font-size: 1.1rem; text-align: center;
+            transition: border-color 0.4s, box-shadow 0.4s;
+        }
+        input:focus, select:focus { 
+            border-color: #00f2fe; 
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+            outline: none; 
+        }
+
+        /* BOTONES */
+        .btn-action {
+            width: 100%; padding: 15px; background: transparent; 
+            border: 2px solid transparent; font-family: 'Orbitron'; cursor: pointer; 
+            margin-top: 20px; border-radius: 5px; font-weight: bold; text-transform: uppercase;
+            animation: btnNeonShift 12s infinite linear;
+        }
+
+        .btn-wa { 
+            width: 100%; padding: 15px; background: #25d366; color: white; 
+            border: none; font-family: 'Orbitron'; cursor: pointer; display: none; margin-top: 15px; 
+            border-radius: 5px; font-weight: bold; justify-content: center; align-items: center; gap: 10px; 
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); 
+        }
+
+        /* BLOQUES DE CONTACTO INDIVIDUALES */
+        .business-container-isolated {
+            width: 100%;
+            margin: 10px auto;
         }
         
-        input, select { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white; margin-top: 10px; border-radius: 5px; font-family: 'Rajdhani'; font-size: 1.1rem; text-align: center; }
-
-        .btn-action {
-            width: 100%; padding: 15px; background: transparent; color: var(--neon-main); 
-            border: 2px solid var(--neon-main); font-family: 'Orbitron'; cursor: pointer; 
-            margin-top: 20px; border-radius: 5px; font-weight: bold; text-transform: uppercase;
+        .business-icon-frame {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.25rem;
+            margin-right: 14px;
+            flex-shrink: 0;
+            animation: textNeonColorShift 12s infinite linear;
         }
-        .btn-action:hover { background: var(--neon-main); color: black; box-shadow: 0 0 30px var(--neon-main); }
-
-        .btn-wa { width: 100%; padding: 15px; background: #25d366; color: white; border: none; font-family: 'Orbitron'; cursor: pointer; display: none; margin-top: 15px; border-radius: 5px; font-weight: bold; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 0 20px #25d366; }
-
-        .btn-maps { width: 100%; padding: 12px; background: #4285F4; color: white; border: none; font-family: 'Orbitron'; cursor: pointer; display: flex; margin-top: 10px; border-radius: 5px; font-weight: bold; justify-content: center; align-items: center; gap: 10px; text-decoration: none; font-size: 0.8rem; }
+        .business-details {
+            text-align: left;
+        }
+        .business-details span {
+            display: block;
+            font-size: 0.65rem;
+            font-family: 'Orbitron';
+            color: #888;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        .business-details p {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f0fdfa;
+            line-height: 1.3;
+        }
+        .business-details small {
+            display: block;
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-top: 2px;
+            font-family: 'Rajdhani';
+        }
+        
+        .btn-maps-corporate { 
+            background: #4285F4; color: white; 
+            border: none; font-family: 'Orbitron'; cursor: pointer; display: flex; margin: 5px auto 25px auto;
+            border-radius: 8px; font-weight: bold; justify-content: center; align-items: center; gap: 10px; 
+            text-decoration: none; font-size: 0.85rem; width: 90%; max-width: 430px; padding: 14px;
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
+        }
 
         #admin-panel {
             position: fixed; top: 0; right: -100%; width: 100%; max-width: 350px; height: 100vh;
-            background: rgba(10,10,10,0.98); border-left: 2px solid var(--neon-main);
+            background: rgba(10, 10, 10, 0.98); border-left: 2px solid #00f2fe;
+            box-shadow: -4px 0 20px rgba(0, 242, 254, 0.25);
             z-index: 2000; padding: 30px 20px; transition: 0.5s; overflow-y: auto; text-align: left;
         }
         #admin-panel.active { right: 0; }
 
-        footer { width: 100%; padding: 30px; text-align: center; opacity: 0.6; font-size: 0.8rem; border-top: 1px solid #222; margin-top: auto; }
+        footer { width: 100%; padding: 30px; text-align: center; opacity: 0.5; font-size: 0.8rem; border-top: 1px solid #151515; margin-top: auto; }
 
-        /* --- CONTENEDOR TEMÁTICO TRICOLOR --- */
+        /* CONTENEDOR VIVA MÉXICO */
         .patria-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            margin: 0px 0 10px 0;
-            background: rgba(255, 255, 255, 0.03); 
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; margin: 0 0 10px 0;
+            background: rgba(255, 255, 255, 0.02); padding: 10px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        .flag-image { width: 85px; height: auto; animation: lightWave 3s ease-in-out infinite alternate, tricolor-neon-glow 4s infinite linear; }
+        .soccer-render { width: 24px; height: auto; filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3)); animation: spinBall 9s linear infinite; }
+        .viva-mexico-neon { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1.15rem; letter-spacing: 2px; margin: 1px 0; animation: tricolor-shift 5s infinite linear; }
 
-        .flag-image {
-            width: 85px; 
-            height: auto;
-            border-radius: 0px !important; /* Esquinas rectas en pico */
-            border: 1px solid transparent; /* Bordes transparentes que se adaptan al fondo */
-            background-clip: padding-box;
-            animation: lightWave 3s ease-in-out infinite alternate, tricolor-neon-glow 4s infinite linear;
-        }
-
-        .soccer-render {
-            width: 24px; 
-            height: auto;
-            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
-            animation: spinBall 9s linear infinite;
-        }
-
-        .viva-mexico-neon {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 1.15rem; 
-            letter-spacing: 2px;
-            margin: 1px 0;
-            animation: tricolor-shift 5s infinite linear;
-        }
-
-        /* 📣 TEXTO PUBLICITARIO ESTILIZADO COMPACTO */
         .promo-mundial {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.88rem; 
-            font-weight: 500;
-            line-height: 1.35;
-            color: #d5d5d5;
-            margin: 5px auto 15px auto;
-            padding: 0px 5px 0px 12px;
-            max-width: 88%;
-            border-left: 2px solid var(--neon-main); 
-            text-align: left; 
-            letter-spacing: 0.2px;
+            font-family: 'Rajdhani', sans-serif; font-size: 0.88rem; font-weight: 500; line-height: 1.35; color: #d5d5d5; margin: 5px auto 15px auto;
+            padding: 0 5px 0 12px; max-width: 88%; border-left: 2px solid transparent; text-align: left; letter-spacing: 0.2px;
+            animation: borderLeftNeonShift 12s infinite linear;
         }
-        
-        .promo-mundial .frase-principal {
-            font-style: italic;
-            display: block;
-            margin-bottom: 2px;
+        .promo-mundial .frase-principal { font-style: italic; display: block; margin-bottom: 2px; }
+        .promo-mundial .llamado-accion { font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; display: block; animation: textNeonColorShift 12s infinite linear; }
+
+        /* --- MOTOR DE ANIMACIÓN ULTRA FLUIDO --- */
+
+        /* Movimiento rotativo infinito de las dos serpientes simétricas */
+        @keyframes rotation_neon {
+            0% { --gradient-angle: 0deg; }
+            100% { --gradient-angle: 360deg; }
         }
 
-        .promo-mundial .llamado-accion {
-            color: var(--neon-main);
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-            display: block;
+        /* Secuencia de colores vibrantes sincronizados */
+        @keyframes panelNeonColorShift {
+            0%, 100% { --current-neon-color: var(--c1); }
+            16% { --current-neon-color: var(--c2); }
+            33% { --current-neon-color: var(--c3); }
+            50% { --current-neon-color: var(--c4); }
+            66% { --current-neon-color: var(--c5); }
+            83% { --current-neon-color: var(--c6); }
         }
 
-        /* ANIMACIONES */
-        @keyframes lightWave {
-            0% { transform: scale(0.97) rotate(-0.5deg); }
-            100% { transform: scale(1.03) rotate(0.5deg); }
+        /* Demás efectos de interfaz */
+        @keyframes borderBottomNeonShift {
+            0%, 100% { border-bottom-color: var(--c1); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.15); }
+            16% { border-bottom-color: var(--c2); box-shadow: 0 4px 15px rgba(255, 0, 85, 0.15); }
+            33% { border-bottom-color: var(--c3); box-shadow: 0 4px 15px rgba(0, 255, 153, 0.15); }
+            50% { border-bottom-color: var(--c4); box-shadow: 0 4px 15px rgba(255, 49, 49, 0.15); }
+            66% { border-bottom-color: var(--c5); box-shadow: 0 4px 15px rgba(188, 19, 254, 0.15); }
+            83% { border-bottom-color: var(--c6); box-shadow: 0 4px 15px rgba(251, 255, 0, 0.15); }
         }
-        @keyframes spinBall {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        @keyframes borderLeftNeonShift {
+            0%, 100% { border-left-color: var(--c1); }
+            16% { border-left-color: var(--c2); }
+            33% { border-left-color: var(--c3); }
+            50% { border-left-color: var(--c4); }
+            66% { border-left-color: var(--c5); }
+            83% { border-left-color: var(--c6); }
         }
-        @keyframes tricolor-shift {
-            0%, 100% { color: #00FF66; text-shadow: 0 0 6px #00FF66, 0 0 12px #00CC55; }
-            33% { color: #FFFFFF; text-shadow: 0 0 6px #FFFFFF, 0 0 12px #BBBBBB; }
-            66% { color: #FF2E2E; text-shadow: 0 0 6px #FF2E2E, 0 0 12px #CC0000; }
+
+        @keyframes btnNeonShift {
+            0%, 100% { border-color: var(--c1); color: var(--c1); box-shadow: 0 0 8px rgba(0, 242, 254, 0.1); }
+            16% { border-color: var(--c2); color: var(--c2); box-shadow: 0 0 8px rgba(255, 0, 85, 0.1); }
+            33% { border-color: var(--c3); color: var(--c3); box-shadow: 0 0 8px rgba(0, 255, 153, 0.1); }
+            50% { border-color: var(--c4); color: var(--c4); box-shadow: 0 0 8px rgba(255, 49, 49, 0.1); }
+            66% { border-color: var(--c5); color: var(--c5); box-shadow: 0 0 8px rgba(188, 19, 254, 0.1); }
+            83% { border-color: var(--c6); color: var(--c6); box-shadow: 0 0 8px rgba(251, 255, 0, 0.1); }
         }
-        
-        /* 🔥 EFECTO LUCES NEÓN QUE SALEN DE CADA BORDE (TRICOLOR INTERMITENTE) */
+
+        @keyframes textNeonColorShift {
+            0%, 100% { color: var(--c1); }
+            16% { color: var(--c2); }
+            33% { color: var(--c3); }
+            50% { color: var(--c4); }
+            66% { color: var(--c5); }
+            83% { color: var(--c6); }
+        }
+
+        @keyframes lightWave { 0% { transform: scale(0.97) rotate(-0.5deg); } 100% { transform: scale(1.03) rotate(0.5deg); } }
+        @keyframes spinBall { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulseGlow { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+        @keyframes slideInHUD { 0% { transform: translateY(6px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes tricolor-shift { 0%, 100% { color: #00FF66; } 33% { color: #FFFFFF; } 66% { color: #FF2E2E; } }
         @keyframes tricolor-neon-glow {
             0%, 100% { filter: drop-shadow(0 0 5px #00FF66) drop-shadow(0 0 12px #00FF66); }
             33% { filter: drop-shadow(0 0 5px #FFFFFF) drop-shadow(0 0 12px #FFFFFF); }
@@ -159,10 +399,13 @@
 </head>
 <body>
 
+    <canvas id="hacker-canvas"></canvas>
+
+    <!-- PANTALLA DE BIENVENIDA -->
     <div id="welcome-screen">
         <h1 class="dynamic-text" style="font-size: 2.8rem; font-family:'Orbitron';">EDWARD BARBER 💈</h1>
         <p style="letter-spacing: 3px; margin-bottom: 30px; color: #aaa;">ZUMPANGO DEL RÍO, GRO.</p>
-        <button class="btn-action" style="width:auto; padding:15px 50px;" onclick="document.getElementById('welcome-screen').classList.add('hide-splash')">SOLICITAR TURNO</button>
+        <button class="btn-action" style="width:auto; padding:15px 50px;" onclick="enterSystem()">SOLICITAR TURNO</button>
     </div>
 
     <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop'); background-size: cover; z-index: -2;"></div>
@@ -172,35 +415,53 @@
         <div onclick="openAdmin()" style="cursor:pointer;" class="dynamic-text"><i class="fas fa-fingerprint" style="font-size: 1.4rem;"></i></div>
     </header>
 
+    <!-- PANEL DE ADMINISTRACIÓN -->
     <div id="admin-panel">
         <div class="admin-title dynamic-text" style="font-family:'Orbitron'; margin-bottom:20px;">EDUARDO PRIVATE<i class="fas fa-times" onclick="closeAdmin()" style="float:right; cursor:pointer;"></i></div>
-        
-        <div style="margin-bottom: 20px; padding: 10px; border: 1px solid var(--neon-main); border-radius: 10px;">
+        <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #00f2fe; border-radius: 10px;">
             <p style="font-size: 0.7rem; color: #888;">ESTADO DEL LOCAL:</p>
             <button id="btnStatusMaster" onclick="toggleShopStatus()" class="btn-action" style="margin-top:5px; padding: 10px; font-size: 0.8rem;">ACTUALIZANDO...</button>
         </div>
-
         <div id="monitorCurr" style="margin-bottom:20px; font-family:'Orbitron'; font-size: 0.8rem;">CLIENTE: --</div>
-        <button onclick="finishProcess()" class="btn-action" style="background:var(--neon-main); color:black; margin-bottom:10px;">ATENDER SIGUIENTE</button>
+        <button onclick="finishProcess()" class="btn-action" style="background:#00f2fe; color:black; margin-bottom:10px;">ATENDER SIGUIENTE</button>
         <button onclick="location.reload()" class="btn-action" style="font-size: 0.7rem; padding: 5px;">RECARGAR LA PAGINA WEB</button>
         <div id="admin-list" style="margin-top:20px;"></div>
     </div>
 
-    <div class="booking-card" id="mainCard">
+    <!-- MONITOR LIVE HUD -->
+    <div class="cyber-panel" style="padding: 12px 14px; margin-top: 25px; margin-bottom: 5px;">
+        <h3 class="dynamic-text" style="font-family:'Orbitron'; font-weight:700; font-size:0.65rem; text-align: center;"><span class="hud-bracket">[</span> PLATFORM LIVE MONITOR <span class="hud-bracket">]</span></h3>
+        <div class="hud-status-container">
+            <div class="hud-sub-panel">
+                <h4>🟢 EN LÍNEA</h4>
+                <div class="hud-counter-value">
+                    <span id="liveUsersCount">1</span>
+                    <span class="hud-live-tag">LIVE</span>
+                </div>
+            </div>
+            <div class="hud-sub-panel">
+                <h4>⏳ DISPONIBLES</h4>
+                <div class="ticker-viewport">
+                    <div id="tickerContainer" style="width:100%;">
+                        <div class="ticker-slot active" style="color:#aaa;"><span>Cargando...</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL PRINCIPAL DE RESERVAS -->
+    <div class="cyber-panel" id="mainCard">
         <div id="closed-overlay">
-            <i class="fas fa-door-closed" style="font-size: 3rem; color: var(--neon-main); margin-bottom: 15px;"></i>
+            <i class="fas fa-door-closed" style="font-size: 3rem; margin-bottom: 15px; animation: textNeonColorShift 12s infinite linear;"></i>
             <h2 class="dynamic-text" style="font-family:'Orbitron';">SERVICIO CERRADO</h2>
             <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">CERRADO TEMPORALMENTE.</p>
         </div>
 
         <div class="patria-container">
-            <!-- 1. BANDERA CON BORDES TRANSPARENTES Y LUCES NEÓN INTEGRADAS -->
             <img class="flag-image" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1f2-1f1fd.png" alt="Bandera de México">
-
-            <!-- 2. TEXTO ¡VIVA MÉXICO! -->
             <div class="viva-mexico-neon">¡VIVA MÉXICO! 🇲🇽</div>
             
-            <!-- 3. BALÓN -->
             <svg class="soccer-render" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="46" fill="#FAFAFA" stroke="#111" stroke-width="2.5"/>
                 <polygon points="50,34 64,44 59,61 41,61 36,44" fill="#151515" stroke="#111" stroke-width="1.5"/>
@@ -216,13 +477,12 @@
             </svg>
         </div>
 
-        <!-- TEXTO PUBLICITARIO ESTILIZADO -->
         <div class="promo-mundial">
             <span class="frase-principal">"No te pierdas del mundial sin antes un corte de pelo para verte genial..."</span>
-            <span class="llamado-accion"><i class="fas fa-calendar-alt"></i> Agenda ahora para verte espectacular</span>
+            <span class="llamado-accion"><i class="fas fa-calendar-alt"></i> Agenda ahora para verte spectacular</span>
         </div>
 
-        <h3 class="dynamic-text" style="font-family:'Orbitron';">💈 AGENDA TU CITA 💈</h3>
+        <h3 style="font-family:'Orbitron'; margin-bottom: 10px;">💈 AGENDA TU CITA 💈</h3>
         <input type="text" id="uName" placeholder="Escribe tu nombre">
         <input type="date" id="uDate" onchange="updateAvailableHours()">
         <select id="uTime" onchange="resetBtn()"><option disabled selected>Selecciona la fecha primero</option></select>
@@ -232,23 +492,53 @@
         <button class="btn-action" id="btnCheck" onclick="checkDate()">VERIFICAR DISPONIBILIDAD</button>
         <button onclick="sendToWhatsApp()" class="btn-wa" id="btnWa"><i class="fab fa-whatsapp"></i> AGENDAR Y ENVIAR WHATSAPP</button>
 
-        <div style="margin-top: 20px; font-size: 0.8rem; border: 1px dashed var(--neon-main); padding: 10px; border-radius: 10px; color: #ccc;">
+        <div style="margin-top: 20px; font-size: 0.8rem; border: 1px dashed #222; padding: 10px; border-radius: 10px; color: #ccc;">
             <i class="fas fa-clock"></i> <b>AVISO IMPORTANTE:</b> Llegar 5 minutos antes. Si llegas tarde, perderás tu lugar y tendrás que agendar nuevamente.
         </div>
     </div>
 
-    <div style="background: rgba(255,255,255,0.05); padding: 20px; width: 90%; max-width: 430px; border-radius: 10px; border: 1px solid var(--neon-main); margin-bottom: 20px;">
-        <h4 class="dynamic-text" style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:10px;">CONTACTO Y UBICACIÓN</h4>
-        <p style="font-size: 0.9rem; color: #fff; margin-bottom: 5px;"><i class="fas fa-map-marker-alt" style="color: var(--neon-main);"></i> Calle 16 de Septiembre No.32, Barrio Señor Santiago</p>
-        <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px;"><i class="fas fa-envelope" style="color: var(--neon-main);"></i> abarcaeduardo26@gmail.com</p>
+    <!-- SECCIÓN DE ATENCIÓN CORPORATIVA (SERPIENTES DE 3PX INDIVIDUALES) -->
+    <div class="business-container-isolated">
+        <h4 style="font-family:'Orbitron'; font-size:0.75rem; margin-top:25px; margin-bottom:15px; letter-spacing:1px; text-align:center; font-weight:700;">👥 CANALES DE CONTACTO OFICIAL</h4>
         
-        <a href="https://www.google.com/maps/search/?api=1&query=Calle+16+de+Septiembre+32+Barrio+Señor+Santiago+Zumpango+del+Rio+Guerrero" target="_blank" class="btn-maps">
-            <i class="fas fa-location-arrow"></i> CÓMO LLEGAR (GOOGLE MAPS)
+        <!-- Bloque 1: Ubicación -->
+        <a href="https://www.google.com/maps/search/?api=1&query=Calle+16+de+Septiembre+32+Barrio+Señor+Santiago+Zumpango+del+Rio+Guerrero" target="_blank" class="business-card-block">
+            <div class="business-icon-frame"><i class="fas fa-map-marked-alt"></i></div>
+            <div class="business-details">
+                <span>UBICACIÓN FISICA</span>
+                <p>Calle 16 de Septiembre No.32, Barrio Señor Santiago</p>
+                <small>Función: Abre el mapa interactivo para ver la dirección del estudio.</small>
+            </div>
+        </a>
+
+        <!-- Bloque 2: Correo -->
+        <a href="mailto:abarcaeduardo26@gmail.com?subject=Consulta%20Edward%20Barber" class="business-card-block">
+            <div class="business-icon-frame"><i class="fas fa-envelope-open-text"></i></div>
+            <div class="business-details">
+                <span>CORREO ELECTRONICO</span>
+                <p>abarcaeduardo26@gmail.com</p>
+                <small>Función: Envía propuestas de negocio, quejas o sugerencias formales.</small>
+            </div>
+        </a>
+
+        <!-- Bloque 3: WhatsApp -->
+        <div onclick="sendInquiryWhatsApp()" class="business-card-block" style="cursor: pointer;">
+            <div class="business-icon-frame"><i class="fab fa-whatsapp"></i></div>
+            <div class="business-details">
+                <span>SOPORTE EN VIVO</span>
+                <p style="color: #25d366;">¿Tienes dudas? Chat empresarial directo</p>
+                <small>Función: Resuelve dudas rápidas o cancelaciones de turnos al instante.</small>
+            </div>
+        </div>
+
+        <a href="https://www.google.com/maps/search/?api=1&query=Calle+16+de+Septiembre+32+Barrio+Señor+Santiago+Zumpango+del+Rio+Guerrero" target="_blank" class="btn-maps-corporate">
+            <i class="fas fa-location-arrow"></i> INICIAR RUTA EN GOOGLE MAPS
         </a>
     </div>
 
-    <div style="background: rgba(255,255,255,0.05); padding: 15px; width: 90%; max-width: 430px; border-radius: 10px; border: 1px solid var(--neon-main);">
-        <h4 class="dynamic-text" style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:5px;">HORARIOS DE ATENCIÓN</h4>
+    <!-- HORARIOS -->
+    <div class="cyber-panel" style="padding: 15px; width: 90%; max-width: 430px; margin-bottom: 25px;">
+        <h4 style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:5px;">HORARIOS DE ATENCIÓN</h4>
         <p style="font-size: 0.9rem; color: #ccc;">Lun-Vie: 4:00 PM - 9:00 PM</p>
         <p style="font-size: 0.9rem; color: #ccc;">Sábados: 11:00 AM - 4:00 PM</p>
     </div>
@@ -260,12 +550,74 @@
         const PASS = "9999";
         const PHONE = "527471957726";
 
-        const colors = ['#00f2fe', '#ff0055', '#0f9', '#ff3131', '#bc13fe', '#fbff00'];
-        let colorIndex = 0;
-        setInterval(() => {
-            document.documentElement.style.setProperty('--neon-main', colors[colorIndex]);
-            colorIndex = (colorIndex + 1) % colors.length;
-        }, 3000);
+        let currentTickerIndex = 0;
+        let tickerInterval = null;
+
+        // LLUVIA DE BALONES DE FÚTBOL
+        const canvas = document.getElementById('hacker-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const soccerBallSymbol = "⚽";
+        const fontSize = 18;
+        const columns = Math.floor(canvas.width / 50); 
+        const drops = [];
+        
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.random() * -canvas.height; 
+        }
+
+        function drawHackerRain() {
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.08)'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const sampleEl = document.querySelector('.dynamic-text');
+            let currentRainColor = '#00f2fe';
+            if (sampleEl) {
+                currentRainColor = window.getComputedStyle(sampleEl).color;
+            }
+
+            ctx.fillStyle = currentRainColor;
+            ctx.font = fontSize + 'px sans-serif';
+
+            for (let i = 0; i < drops.length; i++) {
+                if (Math.random() > 0.15) {
+                    ctx.fillText(soccerBallSymbol, i * 50, drops[i]);
+                }
+                drops[i] += 1.5; 
+
+                if (drops[i] > canvas.height) {
+                    drops[i] = Math.random() * -120;
+                }
+            }
+        }
+        setInterval(drawHackerRain, 33); 
+
+        function startLiveCounter() {
+            setInterval(() => {
+                const countObj = document.getElementById('liveUsersCount');
+                let current = parseInt(countObj.innerText);
+                let change = Math.random() > 0.5 ? 1 : -1;
+                let next = current + change;
+                if(next < 2) next = 3;
+                if(next > 7) next = 4;
+                countObj.innerText = next;
+            }, 4000);
+        }
+
+        function enterSystem() {
+            document.getElementById('welcome-screen').classList.add('hide-splash');
+            const countObj = document.getElementById('liveUsersCount');
+            countObj.innerText = Math.floor(Math.random() * (5 - 3 + 1)) + 3;
+            startLiveCounter();
+            loadDefaultDay();
+        }
 
         async function getDB() { 
             const r = await fetch(DB_URL + ".json"); 
@@ -273,13 +625,19 @@
         }
 
         async function syncStatus() {
-            const data = await getDB();
-            const isClosed = data.status === "closed";
-            document.getElementById('closed-overlay').style.display = isClosed ? "flex" : "none";
-            const btn = document.getElementById('btnStatusMaster');
-            btn.innerText = isClosed ? "SISTEMA: CERRADO ❌" : "SISTEMA: ABIERTO ✅";
-            btn.style.color = isClosed ? "#ff3131" : "#0f9";
-            document.getElementById('monitorCurr').innerText = "Silla: " + (data.chair || "--");
+            try {
+                const data = await getDB();
+                const isClosed = data.status === "closed";
+                document.getElementById('closed-overlay').style.display = isClosed ? "flex" : "none";
+                const btn = document.getElementById('btnStatusMaster');
+                if(btn) {
+                    btn.innerText = isClosed ? "SISTEMA: CERRADO ❌" : "SISTEMA: ABIERTO ✅";
+                    btn.style.color = isClosed ? "#ff3131" : "#0f9";
+                }
+                document.getElementById('monitorCurr').innerText = "Silla: " + (data.chair || "--");
+            } catch (e) {
+                console.log("Error de sincronización.");
+            }
         }
 
         async function toggleShopStatus() {
@@ -289,27 +647,66 @@
             syncStatus();
         }
 
+        function initTicker() {
+            if(tickerInterval) clearInterval(tickerInterval);
+            const slots = document.querySelectorAll('.ticker-slot');
+            if(slots.length <= 1) return;
+            
+            currentTickerIndex = 0;
+            tickerInterval = setInterval(() => {
+                if(slots[currentTickerIndex]) slots[currentTickerIndex].classList.remove('active');
+                currentTickerIndex = (currentTickerIndex + 1) % slots.length;
+                if(slots[currentTickerIndex]) slots[currentTickerIndex].classList.add('active');
+            }, 2500); 
+        }
+
         async function updateAvailableHours() {
             const dInput = document.getElementById('uDate').value;
             const select = document.getElementById('uTime');
+            const tickerContainer = document.getElementById('tickerContainer');
+            
+            if(!dInput) return;
             const day = new Date(dInput + 'T00:00:00').getUTCDay();
             const data = await getDB();
             
             resetBtn();
-            if(day === 0) { alert("Domingos cerrado"); select.innerHTML = '<option disabled selected>Cerrado</option>'; return; }
+            if(day === 0) { 
+                alert("Domingos cerrado"); 
+                select.innerHTML = '<option disabled selected>Cerrado</option>'; 
+                tickerContainer.innerHTML = '<div class="ticker-slot active" style="color:red;"><span>DOMINGO</span><span>CERRADO ❌</span></div>';
+                return; 
+            }
             
             let slots = (day >= 1 && day <= 5) ? 
                 ["04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM", "06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM", "08:00 PM", "08:30 PM"] : 
                 ["11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM"];
             
             select.innerHTML = '<option disabled selected>Selecciona hora</option>';
-            slots.forEach(s => {
+            tickerContainer.innerHTML = ""; 
+
+            slots.forEach((s, idx) => {
                 const busy = data.citas && Object.values(data.citas).some(c => c.date === dInput && c.time === s);
+                
                 let opt = document.createElement('option');
                 opt.value = s; opt.text = busy ? s + " (OCUPADO)" : s; opt.disabled = busy;
                 if(busy) opt.style.color = "#555";
                 select.add(opt);
+
+                let slotDiv = document.createElement('div');
+                slotDiv.className = `ticker-slot ${idx === 0 ? 'active' : ''}`;
+                slotDiv.style.color = busy ? "red" : "#00ffc4";
+                slotDiv.innerHTML = `<span>${s}</span><span>${busy ? 'OCUPADO' : 'LIBRE'}</span>`;
+                tickerContainer.appendChild(slotDiv);
             });
+
+            initTicker();
+        }
+
+        function loadDefaultDay() {
+            const today = new Date();
+            const localDate = today.toLocaleDateString("fr-CA");
+            document.getElementById('uDate').value = localDate;
+            updateAvailableHours();
         }
 
         async function checkDate() {
@@ -354,6 +751,13 @@
             } catch (e) {
                 window.location.href = `https://api.whatsapp.com/send?phone=${PHONE}&text=${msg}`;
             }
+        }
+
+        function sendInquiryWhatsApp() {
+            const inquiryMsg = `*Estimado Equipo de Edward Barber Studio,* 💈%0A%0A` +
+                               `Me pongo en contacto con ustedes a través de la plataforma web ya que tengo una duda o requerimiento especial con respecto a sus servicios de barbería.%0A%0A` +
+                               `Quedo atento a su respuesta. ¡Muchas gracias!`;
+            window.location.href = `https://api.whatsapp.com/send?phone=${PHONE}&text=${inquiryMsg}`;
         }
 
         function openAdmin() { if(prompt("CLAVE:") === PASS) { document.getElementById('admin-panel').classList.add('active'); renderAdmin(); } }
