@@ -436,11 +436,11 @@
                 <h4>🟢 EN LÍNEA</h4>
                 <div class="hud-counter-value">
                     <span id="liveUsersCount">1</span>
-                    <span class="hud-live-tag">LIVE</span>
+                    <span class="hud-live-tag">VIEW</span>
                 </div>
             </div>
             <div class="hud-sub-panel">
-                <h4>⏳ DISPONIBLES</h4>
+                <h4>⏳ESPACIOS DISPONIBLES</h4>
                 <div class="ticker-viewport">
                     <div id="tickerContainer" style="width:100%;">
                         <div class="ticker-slot active" style="color:#aaa;"><span>Cargando...</span></div>
@@ -479,28 +479,74 @@
 
         <div class="promo-mundial">
             <span class="frase-principal">"No te pierdas del mundial sin antes un corte de pelo para verte genial..."</span>
-            <span class="llamado-accion"><i class="fas fa-calendar-alt"></i> Agenda ahora para verte spectacular.</span>
+            <span class="llamado-accion"><i class="fas fa-calendar-alt"></i> Agenda ahora para verte spectacular ...,
+                </span>
         </div>
 
-        <h3 style="font-family:'Orbitron'; margin-bottom: 10px;">💈 AGENDA TU CITA 💈</h3>
-        <input type="text" id="uName" placeholder="Escribe tu nombre">
-        <input type="date" id="uDate" onchange="updateAvailableHours()">
-        <select id="uTime" onchange="resetBtn()"><option disabled selected>Selecciona la fecha primero</option></select>
+        <h3 style="font-family:'Orbitron'; margin-bottom: 10px;">💈 AGENDA TU CITA 💈
+       <!-- PROTOCOLO DE AGENDAMIENTO DIGITAL -->
+<div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 15px; margin: 20px 0; font-family: 'Rajdhani', sans-serif; backdrop-filter: blur(5px);">
+    
+    <h4 class="dynamic-text" style="font-family:'Orbitron'; font-size: 0.55rem; margin-bottom: 15px; text-align: center; letter-spacing: 4px; text-transform: uppercase;">
+        // ¿COMO AGENDAR? 
+    </h4>
+    
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+        <!-- PASO 01 -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [01]</span>
+            <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">👤>ID NAME: Ingresa tu nombre</span>
+        </div>
         
-        <div id="resMsg" style="text-align:center; margin-top:15px; font-family:'Orbitron'; font-weight:bold;"></div>
+        <!-- PASO 02 -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [02]</span>
+            <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">📅>ELIGE FECHA: Elige fecha</span>
+        </div>
         
-        <button class="btn-action" id="btnCheck" onclick="checkDate()">VERIFICAR DISPONIBILIDAD</button>
+        <!-- PASO 03 -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [03]</span>
+            <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">⏰>ELIGE HORA: Cualquier hora disponible</span>
+        </div>
+        
+        <!-- PASO 04 -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [04]</span>
+            <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">🚀 >VERIFICA: Agendar cita y enviar a whatsapp< </span>
+        </div>
+    </div>
+</div>
+
+
+</h3>
+       <!-- PASO 01 -->
+<div class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.65rem; margin-top: 15px; margin-bottom: 5px; letter-spacing: 1.5px; font-weight: bold;">
+    > PASO 01: 👤 >IDENTIFICACIÓN< ⬇
+</div>
+<input type="text" id="uName" placeholder="ESCRIBE TU NOMBRE">
+
+<!-- PASO 02 -->
+<div class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.65rem; margin-top: 15px; margin-bottom: 5px; letter-spacing: 1.5px; font-weight: bold;">
+    > PASO 02: 📅 >SELECCIÓNA LA FECHA< ⬇
+</div>
+<input type="date" id="uDate" onchange="updateAvailableHours()">
+
+<!-- PASO 03 -->
+<div class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.65rem; margin-top: 15px; margin-bottom: 5px; letter-spacing: 1.5px; font-weight: bold;">
+    > PASO 03: ⏰ >SELECCIONA LA HORA< ⬇
+</div>
+<select id="uTime" onchange="resetBtn()"><option disabled selected>SELECCIONA LA FECHA PRIMERO</option></select>
+
+
+        
+        <div id="resMsg" style="text-align:center; margin-top:10px; font-family:'Orbitron'; font-weight:bold;"></div>
+        
+        <button class="btn-action" id="btnCheck" onclick="checkDate()">🚀 VERIFICAR DISPONIBILIDAD</button>
         <button onclick="sendToWhatsApp()" class="btn-wa" id="btnWa"><i class="fab fa-whatsapp"></i> AGENDAR Y ENVIAR WHATSAPP</button>
 
         <div style="margin-top: 20px; font-size: 0.8rem; border: 1px dashed #222; padding: 10px; border-radius: 10px; color: #ccc;">
-            <i class="fas fa-clock"></i> <b>AVISO IMPORTANTE:</b> Llegar 5 minutos antes. Si llegas tarde, perderás tu lugar y tendrás que agendar nuevamente..
-           
-            Agenda en segundos siguiendo estos pasos:
-​           ✨ PASO 01: Ingresa tu nombre en el registro.
-           📅 PASO 02: Elige tu fecha y hora ideal.
-           ✅ PASO 03: Haz clic en "VERIFICAR DISPONIBILIDAD".
-           📲 PASO 04: Confirma tu cita y envíanos el resumen por WhatsApp.
-​           ¡Te esperamos! 💈✨.
+            <i class="fas fa-clock"></i> <b>AVISO IMPORTANTE:</b> Llegar 5 minutos antes. Si llegas tarde, perderás tu lugar y tendrás que agendar nuevamente.
         </div>
     </div>
 
@@ -532,7 +578,7 @@
         <div onclick="sendInquiryWhatsApp()" class="business-card-block" style="cursor: pointer;">
             <div class="business-icon-frame"><i class="fab fa-whatsapp"></i></div>
             <div class="business-details">
-                <span>SOPORTE EN VIVO</span>
+                <span>SOPORTE AL CLIENTE</span>
                 <p style="color: #25d366;">¿Tienes dudas? Chat empresarial directo</p>
                 <small>Función: Resuelve dudas rápidas o cancelaciones de turnos al instante.</small>
             </div>
