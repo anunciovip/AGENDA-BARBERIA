@@ -19,20 +19,25 @@
             --bg-dark: #050505; 
             --card-bg: #0a0a0a;
             
-            /* Colores de la secuencia neón */
+            /* Colores de la secuencia neón — TRANSICIONES MÁS SUAVES */
             --c1: #00f2fe;
             --c2: #ff0055;
             --c3: #00ff99;
             --c4: #ff3131;
             --c5: #bc13fe;
             --c6: #fbff00;
+
+            /* Colores de redes sociales */
+            --tiktok-1: #69C9D0;
+            --tiktok-2: #EE1D52;
+            --fb-blue: #1877F2;
         }
         
         * { 
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
-            transition: background 0.4s ease, transform 0.3s ease;
+            transition: background 0.4s ease, transform 0.3s ease, color 0.5s ease;
             -webkit-user-select: none;
             user-select: none;
         }
@@ -74,13 +79,13 @@
         .hide-splash { transform: translateY(-100%); opacity: 0; pointer-events: none; }
 
         .dynamic-text { 
-            animation: textNeonColorShift 12s infinite linear;
+            animation: textNeonColorShift 18s infinite ease-in-out;
         }
-        .hud-bracket { font-family: 'Orbitron'; animation: textNeonColorShift 12s infinite linear; opacity: 0.8; margin: 0 2px; }
+        .hud-bracket { font-family: 'Orbitron'; animation: textNeonColorShift 18s infinite ease-in-out; opacity: 0.8; margin: 0 2px; }
 
         header {
             width: 100%; padding: 15px 5%; background: rgba(0, 0, 0, 0.95); 
-            animation: borderBottomNeonShift 12s infinite linear;
+            animation: borderBottomNeonShift 18s infinite ease-in-out;
             display: flex; justify-content: space-between; align-items: center; 
             position: sticky; top: 0; z-index: 100;
         }
@@ -99,7 +104,7 @@
             align-items: center;
             text-decoration: none;
             color: #fff;
-            margin: 0 auto 18px auto; /* Separados individualmente */
+            margin: 0 auto 18px auto;
             padding: 16px 14px;
         }
         .business-card-block:hover {
@@ -107,7 +112,7 @@
             transform: translateY(-2px);
         }
 
-        /* Diseño de las dos serpientes persiguiéndose (Grosor aumentado a 3px para mayor impacto) */
+        /* Diseño de las dos serpientes persiguiéndose */
         .cyber-panel::before,
         .cyber-panel::after,
         .hud-sub-panel::before,
@@ -116,7 +121,7 @@
         .business-card-block::after {
             content: "";
             position: absolute;
-            inset: -3px; /* Grosor exacto de 3px */
+            inset: -3px;
             z-index: -1;
             background: conic-gradient(
                 from var(--gradient-angle),
@@ -128,7 +133,7 @@
                 transparent 100%
             );
             border-radius: inherit;
-            animation: rotation_neon 4s linear infinite, panelNeonColorShift 12s infinite linear;
+            animation: rotation_neon 4s linear infinite, panelNeonColorShift 18s infinite ease-in-out;
         }
 
         /* Brillo difuminado de fondo de las dos serpientes */
@@ -158,7 +163,6 @@
             position: relative;
         }
 
-        /* Ajuste de escala para subpaneles pequeños */
         .hud-sub-panel::before,
         .hud-sub-panel::after {
             inset: -2px;
@@ -170,7 +174,7 @@
             letter-spacing: 0.5px;
             text-align: left;
             margin-bottom: 2px;
-            animation: textNeonColorShift 12s infinite linear;
+            animation: textNeonColorShift 18s infinite ease-in-out;
         }
 
         .hud-counter-value {
@@ -199,7 +203,7 @@
             background: rgba(0, 0, 0, 0.4);
             display: flex;
             align-items: center;
-            animation: borderLeftNeonShift 12s infinite linear;
+            animation: borderLeftNeonShift 18s infinite ease-in-out;
         }
 
         .ticker-slot {
@@ -223,32 +227,74 @@
             justify-content: center; align-items: center; z-index: 10; border-radius: 15px;
         }
 
-        /* FORMULARIOS */
-        input, select { 
-            width: 100%; padding: 12px; background: #000; 
-            border: 1px solid #222; color: white; margin-top: 10px; 
-            border-radius: 5px; font-family: 'Rajdhani'; font-size: 1.1rem; text-align: center;
-            transition: border-color 0.4s, box-shadow 0.4s;
+        /* =====================================================
+           FORMULARIOS MEJORADOS — COMPACTOS Y PRO
+        ====================================================== */
+        
+        .form-section {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 15px;
+            backdrop-filter: blur(8px);
         }
+
+        .form-group {
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            font-family: 'Orbitron';
+            font-size: 0.55rem;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            animation: textNeonColorShift 18s infinite ease-in-out;
+        }
+
+        input, select { 
+            width: 100%; 
+            padding: 10px 12px; 
+            background: rgba(0, 0, 0, 0.8); 
+            border: 1px solid rgba(0, 242, 254, 0.3); 
+            color: white; 
+            border-radius: 6px; 
+            font-family: 'Rajdhani'; 
+            font-size: 0.95rem; 
+            text-align: center;
+            transition: border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease;
+        }
+
         input:focus, select:focus { 
             border-color: #00f2fe; 
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.4), inset 0 0 8px rgba(0, 242, 254, 0.1);
+            background: rgba(0, 242, 254, 0.05);
             outline: none; 
         }
 
         /* BOTONES */
         .btn-action {
-            width: 100%; padding: 15px; background: transparent; 
+            width: 100%; padding: 12px; background: transparent; 
             border: 2px solid transparent; font-family: 'Orbitron'; cursor: pointer; 
-            margin-top: 20px; border-radius: 5px; font-weight: bold; text-transform: uppercase;
-            animation: btnNeonShift 12s infinite linear;
+            margin-top: 15px; border-radius: 6px; font-weight: bold; text-transform: uppercase;
+            font-size: 0.85rem;
+            animation: btnNeonShift 18s infinite ease-in-out;
         }
 
         .btn-wa { 
-            width: 100%; padding: 15px; background: #25d366; color: white; 
-            border: none; font-family: 'Orbitron'; cursor: pointer; display: none; margin-top: 15px; 
-            border-radius: 5px; font-weight: bold; justify-content: center; align-items: center; gap: 10px; 
+            width: 100%; padding: 12px; background: #25d366; color: white; 
+            border: none; font-family: 'Orbitron'; cursor: pointer; display: none; margin-top: 12px; 
+            border-radius: 6px; font-weight: bold; justify-content: center; align-items: center; gap: 10px; 
             box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); 
+            font-size: 0.85rem;
         }
 
         /* BLOQUES DE CONTACTO INDIVIDUALES */
@@ -268,7 +314,7 @@
             font-size: 1.25rem;
             margin-right: 14px;
             flex-shrink: 0;
-            animation: textNeonColorShift 12s infinite linear;
+            animation: textNeonColorShift 18s infinite ease-in-out;
         }
         .business-details {
             text-align: left;
@@ -325,64 +371,268 @@
         .promo-mundial {
             font-family: 'Rajdhani', sans-serif; font-size: 0.88rem; font-weight: 500; line-height: 1.35; color: #d5d5d5; margin: 5px auto 15px auto;
             padding: 0 5px 0 12px; max-width: 88%; border-left: 2px solid transparent; text-align: left; letter-spacing: 0.2px;
-            animation: borderLeftNeonShift 12s infinite linear;
+            animation: borderLeftNeonShift 18s infinite ease-in-out;
         }
         .promo-mundial .frase-principal { font-style: italic; display: block; margin-bottom: 2px; }
-        .promo-mundial .llamado-accion { font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; display: block; animation: textNeonColorShift 12s infinite linear; }
+        .promo-mundial .llamado-accion { font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; display: block; animation: textNeonColorShift 18s infinite ease-in-out; }
+
+        /* =====================================================
+           SECCIÓN DE REDES SOCIALES — DISEÑO PRO NEON
+        ====================================================== */
+
+        .social-section-wrapper {
+            width: 90%;
+            max-width: 430px;
+            margin: 5px auto 25px auto;
+        }
+
+        .social-section-title {
+            font-family: 'Orbitron';
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-align: center;
+            margin-bottom: 14px;
+            font-weight: 700;
+            animation: textNeonColorShift 18s infinite ease-in-out;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Tarjeta base de red social */
+        .social-card {
+            position: relative;
+            border-radius: 14px;
+            background: var(--card-bg);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 10px 14px 10px;
+            gap: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .social-card:hover {
+            transform: translateY(-4px) scale(1.03);
+        }
+
+        /* Brillo de fondo animado al hover */
+        .social-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+        .social-card:hover::before { opacity: 1; }
+
+        /* Borde neon giratorio */
+        .social-card::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            z-index: -1;
+            border-radius: 14px;
+            background: conic-gradient(
+                from var(--gradient-angle),
+                var(--social-color-a) 0deg,
+                transparent 30%,
+                transparent 50%,
+                var(--social-color-b) 180deg,
+                transparent 210%,
+                transparent 100%
+            );
+            animation: rotation_neon 3.5s linear infinite;
+        }
+
+        /* ---- TikTok ---- */
+        .social-card.tiktok {
+            --social-color-a: var(--tiktok-1);
+            --social-color-b: var(--tiktok-2);
+        }
+        .social-card.tiktok::before {
+            background: radial-gradient(ellipse at center, rgba(105,201,208,0.12) 0%, transparent 70%);
+        }
+        .social-card.tiktok:hover {
+            box-shadow: 0 0 22px rgba(105, 201, 208, 0.35), 0 0 8px rgba(238, 29, 82, 0.25);
+        }
+
+        /* ---- Facebook ---- */
+        .social-card.facebook {
+            --social-color-a: var(--fb-blue);
+            --social-color-b: #4facff;
+        }
+        .social-card.facebook::before {
+            background: radial-gradient(ellipse at center, rgba(24,119,242,0.15) 0%, transparent 70%);
+        }
+        .social-card.facebook:hover {
+            box-shadow: 0 0 22px rgba(24, 119, 242, 0.4);
+        }
+
+        /* Ícono contenedor */
+        .social-icon-wrap {
+            position: relative;
+            z-index: 1;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+
+        /* TikTok: efecto doble sombra de color característico */
+        .social-card.tiktok .social-icon-wrap {
+            background: rgba(0,0,0,0.5);
+            box-shadow: 2px 0 0 var(--tiktok-1), -2px 0 0 var(--tiktok-2);
+            animation: tiktokGlitch 3s infinite;
+        }
+
+        .social-card.facebook .social-icon-wrap {
+            background: rgba(24, 119, 242, 0.15);
+            box-shadow: 0 0 14px rgba(24, 119, 242, 0.5);
+        }
+
+        .social-card.tiktok .social-icon-wrap i { color: #fff; }
+        .social-card.facebook .social-icon-wrap i { color: var(--fb-blue); }
+
+        /* Textos de la tarjeta */
+        .social-card-label {
+            position: relative;
+            z-index: 1;
+            font-family: 'Orbitron';
+            font-size: 0.6rem;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .social-card.tiktok .social-card-label { color: var(--tiktok-1); }
+        .social-card.facebook .social-card-label { color: var(--fb-blue); }
+
+        .social-card-handle {
+            position: relative;
+            z-index: 1;
+            font-family: 'Rajdhani';
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #ccc;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Chip "SÍGUENOS" */
+        .social-follow-chip {
+            position: relative;
+            z-index: 1;
+            font-family: 'Orbitron';
+            font-size: 0.48rem;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+        .social-card.tiktok .social-follow-chip {
+            background: rgba(105, 201, 208, 0.12);
+            border: 1px solid var(--tiktok-1);
+            color: var(--tiktok-1);
+        }
+        .social-card.facebook .social-follow-chip {
+            background: rgba(24, 119, 242, 0.12);
+            border: 1px solid var(--fb-blue);
+            color: var(--fb-blue);
+        }
+
+        /* Animación glitch de TikTok */
+        @keyframes tiktokGlitch {
+            0%, 90%, 100% { box-shadow: 2px 0 0 var(--tiktok-1), -2px 0 0 var(--tiktok-2); }
+            92% { box-shadow: 4px 0 0 var(--tiktok-1), -4px 0 0 var(--tiktok-2); }
+            94% { box-shadow: -2px 0 0 var(--tiktok-1), 2px 0 0 var(--tiktok-2); }
+            96% { box-shadow: 3px 0 0 var(--tiktok-1), -3px 0 0 var(--tiktok-2); }
+        }
+
+        /* Pulso de live en tarjeta TikTok */
+        .social-live-dot {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--tiktok-2);
+            animation: pulseGlow 0.9s infinite alternate;
+            z-index: 2;
+        }
+
+        /* =====================================================
+           FIN REDES SOCIALES
+        ====================================================== */
 
         /* --- MOTOR DE ANIMACIÓN ULTRA FLUIDO --- */
 
-        /* Movimiento rotativo infinito de las dos serpientes simétricas */
         @keyframes rotation_neon {
             0% { --gradient-angle: 0deg; }
             100% { --gradient-angle: 360deg; }
         }
 
-        /* Secuencia de colores vibrantes sincronizados */
+        /* Transiciones más suaves y fluidas (18s en lugar de 12s) */
         @keyframes panelNeonColorShift {
             0%, 100% { --current-neon-color: var(--c1); }
-            16% { --current-neon-color: var(--c2); }
-            33% { --current-neon-color: var(--c3); }
-            50% { --current-neon-color: var(--c4); }
-            66% { --current-neon-color: var(--c5); }
-            83% { --current-neon-color: var(--c6); }
+            14.2% { --current-neon-color: var(--c2); }
+            28.4% { --current-neon-color: var(--c3); }
+            42.6% { --current-neon-color: var(--c4); }
+            56.8% { --current-neon-color: var(--c5); }
+            71% { --current-neon-color: var(--c6); }
+            85.2% { --current-neon-color: var(--c1); }
         }
 
-        /* Demás efectos de interfaz */
         @keyframes borderBottomNeonShift {
             0%, 100% { border-bottom-color: var(--c1); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.15); }
-            16% { border-bottom-color: var(--c2); box-shadow: 0 4px 15px rgba(255, 0, 85, 0.15); }
-            33% { border-bottom-color: var(--c3); box-shadow: 0 4px 15px rgba(0, 255, 153, 0.15); }
-            50% { border-bottom-color: var(--c4); box-shadow: 0 4px 15px rgba(255, 49, 49, 0.15); }
-            66% { border-bottom-color: var(--c5); box-shadow: 0 4px 15px rgba(188, 19, 254, 0.15); }
-            83% { border-bottom-color: var(--c6); box-shadow: 0 4px 15px rgba(251, 255, 0, 0.15); }
+            14.2% { border-bottom-color: var(--c2); box-shadow: 0 4px 15px rgba(255, 0, 85, 0.15); }
+            28.4% { border-bottom-color: var(--c3); box-shadow: 0 4px 15px rgba(0, 255, 153, 0.15); }
+            42.6% { border-bottom-color: var(--c4); box-shadow: 0 4px 15px rgba(255, 49, 49, 0.15); }
+            56.8% { border-bottom-color: var(--c5); box-shadow: 0 4px 15px rgba(188, 19, 254, 0.15); }
+            71% { border-bottom-color: var(--c6); box-shadow: 0 4px 15px rgba(251, 255, 0, 0.15); }
+            85.2% { border-bottom-color: var(--c1); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.15); }
         }
 
         @keyframes borderLeftNeonShift {
             0%, 100% { border-left-color: var(--c1); }
-            16% { border-left-color: var(--c2); }
-            33% { border-left-color: var(--c3); }
-            50% { border-left-color: var(--c4); }
-            66% { border-left-color: var(--c5); }
-            83% { border-left-color: var(--c6); }
+            14.2% { border-left-color: var(--c2); }
+            28.4% { border-left-color: var(--c3); }
+            42.6% { border-left-color: var(--c4); }
+            56.8% { border-left-color: var(--c5); }
+            71% { border-left-color: var(--c6); }
+            85.2% { border-left-color: var(--c1); }
         }
 
         @keyframes btnNeonShift {
             0%, 100% { border-color: var(--c1); color: var(--c1); box-shadow: 0 0 8px rgba(0, 242, 254, 0.1); }
-            16% { border-color: var(--c2); color: var(--c2); box-shadow: 0 0 8px rgba(255, 0, 85, 0.1); }
-            33% { border-color: var(--c3); color: var(--c3); box-shadow: 0 0 8px rgba(0, 255, 153, 0.1); }
-            50% { border-color: var(--c4); color: var(--c4); box-shadow: 0 0 8px rgba(255, 49, 49, 0.1); }
-            66% { border-color: var(--c5); color: var(--c5); box-shadow: 0 0 8px rgba(188, 19, 254, 0.1); }
-            83% { border-color: var(--c6); color: var(--c6); box-shadow: 0 0 8px rgba(251, 255, 0, 0.1); }
+            14.2% { border-color: var(--c2); color: var(--c2); box-shadow: 0 0 8px rgba(255, 0, 85, 0.1); }
+            28.4% { border-color: var(--c3); color: var(--c3); box-shadow: 0 0 8px rgba(0, 255, 153, 0.1); }
+            42.6% { border-color: var(--c4); color: var(--c4); box-shadow: 0 0 8px rgba(255, 49, 49, 0.1); }
+            56.8% { border-color: var(--c5); color: var(--c5); box-shadow: 0 0 8px rgba(188, 19, 254, 0.1); }
+            71% { border-color: var(--c6); color: var(--c6); box-shadow: 0 0 8px rgba(251, 255, 0, 0.1); }
+            85.2% { border-color: var(--c1); color: var(--c1); box-shadow: 0 0 8px rgba(0, 242, 254, 0.1); }
         }
 
         @keyframes textNeonColorShift {
             0%, 100% { color: var(--c1); }
-            16% { color: var(--c2); }
-            33% { color: var(--c3); }
-            50% { color: var(--c4); }
-            66% { color: var(--c5); }
-            83% { color: var(--c6); }
+            14.2% { color: var(--c2); }
+            28.4% { color: var(--c3); }
+            42.6% { color: var(--c4); }
+            56.8% { color: var(--c5); }
+            71% { color: var(--c6); }
+            85.2% { color: var(--c1); }
         }
 
         @keyframes lightWave { 0% { transform: scale(0.97) rotate(-0.5deg); } 100% { transform: scale(1.03) rotate(0.5deg); } }
@@ -412,7 +662,16 @@
 
     <header>
         <h2 style="font-family:'Orbitron'; font-size:0.9rem;">EDWARD BARBER 💈</h2>
-        <div onclick="openAdmin()" style="cursor:pointer;" class="dynamic-text"><i class="fas fa-fingerprint" style="font-size: 1.4rem;"></i></div>
+        <!-- ÍCONOS SOCIALES EN EL HEADER -->
+        <div style="display:flex; align-items:center; gap:14px;">
+            <a href="https://www.tiktok.com/@user1520091343737?_r=1&_t=ZS-97A4hIjqpyD" target="_blank" title="TikTok" style="text-decoration:none; display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,0.05); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='scale(1.2)'; this.style.boxShadow='0 0 10px rgba(105,201,208,0.6)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                <i class="fab fa-tiktok" style="font-size:1rem; color:#69C9D0; filter: drop-shadow(1px 0 0 #EE1D52);"></i>
+            </a>
+            <a href="https://www.facebook.com/share/1D8jThJjW7/?mibextid=wwXIfr" target="_blank" title="Facebook" style="text-decoration:none; display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,0.05); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='scale(1.2)'; this.style.boxShadow='0 0 10px rgba(24,119,242,0.6)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                <i class="fab fa-facebook-f" style="font-size:1rem; color:#1877F2;"></i>
+            </a>
+            <div onclick="openAdmin()" style="cursor:pointer;" class="dynamic-text"><i class="fas fa-fingerprint" style="font-size: 1.4rem;"></i></div>
+        </div>
     </header>
 
     <!-- PANEL DE ADMINISTRACIÓN -->
@@ -440,7 +699,7 @@
                 </div>
             </div>
             <div class="hud-sub-panel">
-                <h4>⏳ESPACIOS DISPONIBLES</h4>
+                <h4>⏳ ESPACIOS DISPONIBLES</h4>
                 <div class="ticker-viewport">
                     <div id="tickerContainer" style="width:100%;">
                         <div class="ticker-slot active" style="color:#aaa;"><span>Cargando...</span></div>
@@ -453,7 +712,7 @@
     <!-- PANEL PRINCIPAL DE RESERVAS -->
     <div class="cyber-panel" id="mainCard">
         <div id="closed-overlay">
-            <i class="fas fa-door-closed" style="font-size: 3rem; margin-bottom: 15px; animation: textNeonColorShift 12s infinite linear;"></i>
+            <i class="fas fa-door-closed" style="font-size: 3rem; margin-bottom: 15px; animation: textNeonColorShift 18s infinite ease-in-out;"></i>
             <h2 class="dynamic-text" style="font-family:'Orbitron';">SERVICIO CERRADO</h2>
             <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">CERRADO TEMPORALMENTE.</p>
         </div>
@@ -479,82 +738,74 @@
 
         <div class="promo-mundial">
             <span class="frase-principal">"No te pierdas del mundial sin antes un corte de pelo para verte genial..."</span>
-            <span class="llamado-accion"><i class="fas fa-calendar-alt"></i> Agenda ahora para verte spectacular ...,
-                </span>
+            <span class="llamado-accion"><i class="fas fa-calendar-alt"></i> Agenda ahora para verte spectacular ...
+            </span>
         </div>
 
-        <h3 style="font-family:'Orbitron'; margin-bottom: 10px;">💈 AGENDA TU CITA 💈
-       <!-- PROTOCOLO DE AGENDAMIENTO DIGITAL -->
-<div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 15px; margin: 20px 0; font-family: 'Rajdhani', sans-serif; backdrop-filter: blur(5px);">
-    
-    <h4 class="dynamic-text" style="font-family:'Orbitron'; font-size: 0.55rem; margin-bottom: 15px; text-align: center; letter-spacing: 4px; text-transform: uppercase;">
-        // ¿COMO AGENDAR? 
-    </h4>
-    
-    <div style="display: flex; flex-direction: column; gap: 10px;">
-        <!-- PASO 01 -->
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [01]</span>
-            <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">👤>ID NAME: Ingresa tu nombre</span>
+        <h3 style="font-family:'Orbitron'; margin-bottom: 10px;">💈 AGENDA TU CITA 💈</h3>
+        
+        <!-- PROTOCOLO DE AGENDAMIENTO DIGITAL -->
+        <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 15px; margin: 20px 0; font-family: 'Rajdhani', sans-serif; backdrop-filter: blur(5px);">
+            
+            <h4 class="dynamic-text" style="font-family:'Orbitron'; font-size: 0.55rem; margin-bottom: 15px; text-align: center; letter-spacing: 4px; text-transform: uppercase;">
+                // ¿COMO AGENDAR? 
+            </h4>
+            
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [01]</span>
+                    <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">👤>ID NAME: Ingresa tu nombre</span>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [02]</span>
+                    <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">📅>ELIGE FECHA: Elige fecha</span>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [03]</span>
+                    <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">⏰>ELIGE HORA: Cualquier hora disponible</span>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [04]</span>
+                    <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">🚀 >VERIFICA: Agendar cita y enviar a whatsapp< </span>
+                </div>
+            </div>
         </div>
-        
-        <!-- PASO 02 -->
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [02]</span>
-            <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">📅>ELIGE FECHA: Elige fecha</span>
+
+        <!-- FORMULARIO COMPACTO Y PRO -->
+        <div class="form-section">
+            <div class="form-group">
+                <label class="form-label">👤 NOMBRE</label>
+                <input type="text" id="uName" placeholder="Escribe tu nombre aquí">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">📅 FECHA</label>
+                <input type="date" id="uDate" onchange="updateAvailableHours()">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">⏰ HORA</label>
+                <select id="uTime" onchange="resetBtn()"><option disabled selected>Selecciona la fecha primero</option></select>
+            </div>
+
+            <div id="resMsg" style="text-align:center; margin-top:10px; font-family:'Orbitron'; font-weight:bold;"></div>
+            
+            <button class="btn-action" id="btnCheck" onclick="checkDate()">🚀 VERIFICAR DISPONIBILIDAD</button>
+            <button onclick="sendToWhatsApp()" class="btn-wa" id="btnWa"><i class="fab fa-whatsapp"></i> AGENDAR Y ENVIAR WHATSAPP</button>
         </div>
-        
-        <!-- PASO 03 -->
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [03]</span>
-            <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">⏰>ELIGE HORA: Cualquier hora disponible</span>
-        </div>
-        
-        <!-- PASO 04 -->
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [04]</span>
-            <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">🚀 >VERIFICA: Agendar cita y enviar a whatsapp< </span>
-        </div>
-    </div>
-</div>
 
-
-</h3>
-       <!-- PASO 01 -->
-<div class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.65rem; margin-top: 15px; margin-bottom: 5px; letter-spacing: 1.5px; font-weight: bold;">
-    > PASO 01: 👤 >IDENTIFICACIÓN< ⬇
-</div>
-<input type="text" id="uName" placeholder="ESCRIBE TU NOMBRE">
-
-<!-- PASO 02 -->
-<div class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.65rem; margin-top: 15px; margin-bottom: 5px; letter-spacing: 1.5px; font-weight: bold;">
-    > PASO 02: 📅 >SELECCIÓNA LA FECHA< ⬇
-</div>
-<input type="date" id="uDate" onchange="updateAvailableHours()">
-
-<!-- PASO 03 -->
-<div class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.65rem; margin-top: 15px; margin-bottom: 5px; letter-spacing: 1.5px; font-weight: bold;">
-    > PASO 03: ⏰ >SELECCIONA LA HORA< ⬇
-</div>
-<select id="uTime" onchange="resetBtn()"><option disabled selected>SELECCIONA LA FECHA PRIMERO</option></select>
-
-
-        
-        <div id="resMsg" style="text-align:center; margin-top:10px; font-family:'Orbitron'; font-weight:bold;"></div>
-        
-        <button class="btn-action" id="btnCheck" onclick="checkDate()">🚀 VERIFICAR DISPONIBILIDAD</button>
-        <button onclick="sendToWhatsApp()" class="btn-wa" id="btnWa"><i class="fab fa-whatsapp"></i> AGENDAR Y ENVIAR WHATSAPP</button>
-
-        <div style="margin-top: 20px; font-size: 0.8rem; border: 1px dashed #222; padding: 10px; border-radius: 10px; color: #ccc;">
+        <div style="margin-top: 15px; font-size: 0.8rem; border: 1px dashed #222; padding: 10px; border-radius: 10px; color: #ccc;">
             <i class="fas fa-clock"></i> <b>AVISO IMPORTANTE:</b> Llegar 5 minutos antes. Si llegas tarde, perderás tu lugar y tendrás que agendar nuevamente.
         </div>
     </div>
 
-    <!-- SECCIÓN DE ATENCIÓN CORPORATIVA (SERPIENTES DE 3PX INDIVIDUALES) -->
+    <!-- SECCIÓN DE ATENCIÓN CORPORATIVA -->
     <div class="business-container-isolated">
         <h4 style="font-family:'Orbitron'; font-size:0.75rem; margin-top:25px; margin-bottom:15px; letter-spacing:1px; text-align:center; font-weight:700;">👥 CANALES DE CONTACTO OFICIAL</h4>
         
-        <!-- Bloque 1: Ubicación -->
         <a href="https://www.google.com/maps/search/?api=1&query=Calle+16+de+Septiembre+32+Barrio+Señor+Santiago+Zumpango+del+Rio+Guerrero" target="_blank" class="business-card-block">
             <div class="business-icon-frame"><i class="fas fa-map-marked-alt"></i></div>
             <div class="business-details">
@@ -564,7 +815,6 @@
             </div>
         </a>
 
-        <!-- Bloque 2: Correo -->
         <a href="mailto:abarcaeduardo26@gmail.com?subject=Consulta%20Edward%20Barber" class="business-card-block">
             <div class="business-icon-frame"><i class="fas fa-envelope-open-text"></i></div>
             <div class="business-details">
@@ -574,7 +824,6 @@
             </div>
         </a>
 
-        <!-- Bloque 3: WhatsApp -->
         <div onclick="sendInquiryWhatsApp()" class="business-card-block" style="cursor: pointer;">
             <div class="business-icon-frame"><i class="fab fa-whatsapp"></i></div>
             <div class="business-details">
@@ -588,6 +837,40 @@
             <i class="fas fa-location-arrow"></i> INICIAR RUTA EN GOOGLE MAPS
         </a>
     </div>
+
+    <!-- =====================================================
+         SECCIÓN REDES SOCIALES — EDWARD BARBER STUDIO
+    ====================================================== -->
+    <div class="social-section-wrapper">
+        <p class="social-section-title">
+            <span class="hud-bracket">[</span> SÍGUENOS EN REDES <span class="hud-bracket">]</span>
+        </p>
+        <div class="social-grid">
+
+            <!-- TARJETA TIKTOK -->
+            <a href="https://www.tiktok.com/@user1520091343737?_r=1&_t=ZS-97A4hIjqpyD" target="_blank" class="social-card tiktok">
+                <div class="social-live-dot"></div>
+                <div class="social-icon-wrap">
+                    <i class="fab fa-tiktok"></i>
+                </div>
+                <div class="social-card-label">TikTok</div>
+                <div class="social-card-handle">@EdwardBarber</div>
+                <div class="social-follow-chip">SÍGUENOS</div>
+            </a>
+
+            <!-- TARJETA FACEBOOK -->
+            <a href="https://www.facebook.com/share/1D8jThJjW7/?mibextid=wwXIfr" target="_blank" class="social-card facebook">
+                <div class="social-icon-wrap">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <div class="social-card-label">Facebook</div>
+                <div class="social-card-handle">Edward Barber Studio</div>
+                <div class="social-follow-chip">SÍGUENOS</div>
+            </a>
+
+        </div>
+    </div>
+    <!-- FIN REDES SOCIALES -->
 
     <!-- HORARIOS -->
     <div class="cyber-panel" style="padding: 15px; width: 90%; max-width: 430px; margin-bottom: 25px;">
