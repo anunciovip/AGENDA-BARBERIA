@@ -573,9 +573,61 @@
             z-index: 2;
         }
 
-        /* =====================================================
-           FIN REDES SOCIALES
-        ====================================================== */
+        /* SECCIÓN DE CRÉDITOS DEL CREADOR - FIRMA PRO */
+        .creator-credits {
+            width: 100%;
+            padding: 20px 0 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            opacity: 0.8;
+        }
+        .creator-label {
+            font-family: 'Orbitron';
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            color: #666;
+            text-transform: uppercase;
+        }
+        .creator-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .creator-link {
+            text-decoration: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #888;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        .creator-link:hover {
+            transform: scale(1.15);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--c1);
+            color: var(--c1);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+        }
+        .creator-link.wa:hover {
+            border-color: #25d366;
+            color: #25d366;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.2);
+        }
+        .creator-link.mail:hover {
+            border-color: #ff3131;
+            color: #ff3131;
+            box-shadow: 0 0 15px rgba(255, 49, 49, 0.2);
+        }
 
         /* --- MOTOR DE ANIMACIÓN ULTRA FLUIDO --- */
 
@@ -877,6 +929,19 @@
         <h4 style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:5px;">HORARIOS DE ATENCIÓN</h4>
         <p style="font-size: 0.9rem; color: #ccc;">Lun-Vie: 4:00 PM - 9:00 PM</p>
         <p style="font-size: 0.9rem; color: #ccc;">Sábados: 11:00 AM - 4:00 PM</p>
+    </div>
+
+    <!-- SECCIÓN DE CRÉDITOS DEL CREADOR -->
+    <div class="creator-credits">
+        <span class="creator-label">DISEÑO Y DESARROLLO</span>
+        <div class="creator-icons">
+            <a href="https://api.whatsapp.com/send?phone=527471060076&text=*Hola!* 🚀%0A%0AHe visto la página de *Edward Barber Studio* y me gustaría solicitar información para una página personalizada para mi negocio.%0A%0A¿Podrías darme detalles?" target="_blank" class="creator-link wa" title="Contactar Creador vía WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="mailto:CHRISTHIANR700@GMAIL.COM?subject=Solicitud%20de%20Página%20Web%20Personalizada&body=Hola,%20vi%20tu%20trabajo%20en%20la%20página%20de%20Edward%20Barber%20y%20me%20gustaría%20una%20cotización..." class="creator-link mail" title="Contactar Creador vía Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
     </div>
 
     <footer>© 2026 EDWARD BARBER STUDIO | ZUMPANGO DEL RÍO</footer>
