@@ -896,7 +896,7 @@
     <div class="business-container-isolated">
         <h4 style="font-family:'Orbitron'; font-size:0.75rem; margin-top:25px; margin-bottom:15px; letter-spacing:1px; text-align:center; font-weight:700;">👥 CANALES DE CONTACTO OFICIAL</h4>
         
-        <a href="https://www.google.com/maps/search/?api=1&query=Calle+16+de+Septiembre+32+Barrio+Señor+Santiago+Zumpango+del+Rio+Guerrero" target="_blank" class="business-card-block">
+        <a href="https://www.google.com/maps/search/?api=1&query=Calle+16+de+Septiembre+32+Barrio+Señor+Santiago+Zumpango+del+Rio+Guerrero" target="_blank" class="cyber-panel business-card-block" style="text-decoration: none; display: flex; align-items: center; color: white;">
             <div class="business-icon-frame"><i class="fas fa-map-marked-alt"></i></div>
             <div class="business-details">
                 <span>UBICACIÓN FISICA</span>
@@ -905,7 +905,7 @@
             </div>
         </a>
 
-        <a href="mailto:abarcaeduardo26@gmail.com?subject=Consulta%20Edward%20Barber" class="business-card-block">
+        <a href="mailto:abarcaeduardo26@gmail.com?subject=Consulta%20Edward%20Barber" class="cyber-panel business-card-block" style="text-decoration: none; display: flex; align-items: center; color: white;">
             <div class="business-icon-frame"><i class="fas fa-envelope-open-text"></i></div>
             <div class="business-details">
                 <span>CORREO ELECTRONICO</span>
@@ -914,12 +914,12 @@
             </div>
         </a>
 
-        <div onclick="sendInquiryWhatsApp()" class="business-card-block" style="cursor: pointer;">
+        <div onclick="sendInquiryWhatsApp()" class="cyber-panel business-card-block" style="cursor: pointer; display: flex; align-items: center;">
             <div class="business-icon-frame"><i class="fab fa-whatsapp"></i></div>
             <div class="business-details">
                 <span>SOPORTE AL CLIENTE</span>
                 <p style="color: #25d366;">¿Tienes dudas? Chat empresarial directo</p>
-                <small>Función: Resuelve dudas rápidas o cancelaciones de turnos al instante.</small>
+                <small>Función: Resuelve dudas rápidas o aclaraciones de turnos al instante.</small>
             </div>
         </div>
 
@@ -957,6 +957,25 @@
         <p style="font-size: 0.9rem; color: #ccc;">Sábados: 11:00 AM - 4:00 PM</p>
     </div>
 
+    <!-- APARTADO DE CANCELACIONES DE CITAS AL INSTANTE -->
+    <div class="cyber-panel" style="padding: 18px 16px; width: 90%; max-width: 430px; margin-bottom: 25px;">
+        <h4 style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:5px; color:#ff3131;">CANCELACION DE CITA</h4>
+        <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 12px; line-height: 1.4;">INGRESA TUS DATOS TAL Y COMO AGENDASTE PARA CANCELAR.</p>
+        
+        <div class="form-group" style="margin-bottom: 8px;">
+            <label class="form-label" style="color: #ff3131;">👤 TU NOMBRE EXACTO</label>
+            <input type="text" id="cancelName" placeholder="Escribe el nombre de la cita">
+        </div>
+        <div class="form-group" style="margin-bottom: 12px;">
+            <label class="form-label" style="color: #ff3131;">📅 FECHA DE LA CITA</label>
+            <input type="date" id="cancelDate">
+        </div>
+
+        <button onclick="processInstantCancellation()" class="btn-action" style="margin-top:0; border-color:#ff3131; color:#ff3131; background:rgba(255,49,49,0.03); padding:10px; font-size:0.8rem;">
+            <i class="fas fa-calendar-times"></i> CANCELAR CITA
+        </button>
+    </div>
+
     <!-- SECCIÓN DE CRÉDITOS -->
     <div class="creator-credits">
         <span class="creator-label">DISEÑO Y DESARROLLO</span>
@@ -990,7 +1009,6 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // ARREGLO DE ESTRELLAS CON EFECTO DE PROFUNDIDAD (3D)
         const numStars = 120;
         const stars = [];
         
@@ -1004,11 +1022,9 @@
         }
 
         function drawHackerRain() {
-            // Fondo semitransparente oscuro para crear rastro de movimiento
             ctx.fillStyle = 'rgba(5, 5, 5, 0.18)'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Obtener dinámicamente el color neón actual del CSS para pintar las estrellas
             const sampleEl = document.querySelector('.dynamic-text');
             let currentRainColor = '#00f2fe';
             if (sampleEl) {
@@ -1020,30 +1036,21 @@
 
             for (let i = 0; i < stars.length; i++) {
                 const star = stars[i];
-                
-                // Mover la estrella hacia adelante reduciendo su z
                 star.z -= 2.5; 
-                
-                // Si la estrella pasa al observador, reiniciarla al fondo
                 if (star.z <= 0) {
                     star.z = canvas.width;
                     star.x = Math.random() * canvas.width - cx;
                     star.y = Math.random() * canvas.height - cy;
                 }
 
-                // Proyección 3D clásica a plano 2D
                 const px = (star.x / star.z) * cx + cx;
                 const py = (star.y / star.z) * cy + cy;
                 
-                // Si se sale de los límites de la pantalla, omitir renderizado
                 if (px < 0 || px > canvas.width || py < 0 || py > canvas.height) {
                     continue;
                 }
 
-                // El tamaño aumenta a medida que se acerca (z disminuye)
                 const size3d = (1 - star.z / canvas.width) * star.size * 3.5;
-                
-                // Dibujar la estrella con un degradado radial o círculo sólido brillante
                 ctx.fillStyle = currentRainColor;
                 ctx.beginPath();
                 ctx.arc(px, py, size3d < 0.5 ? 0.5 : size3d, 0, Math.PI * 2);
@@ -1150,6 +1157,7 @@
             const today = new Date();
             const localDate = today.toLocaleDateString("fr-CA");
             document.getElementById('uDate').value = localDate;
+            document.getElementById('cancelDate').value = localDate;
             updateAvailableHours();
         }
 
@@ -1183,10 +1191,63 @@
             }
         }
 
+        /* LÓGICA DE CANCELACIÓN AUTOMÁTICA EN LÍNEA E INSTANTÁNEA REVISADA */
+        async function processInstantCancellation() {
+            const cName = document.getElementById('cancelName').value.trim();
+            const cDate = document.getElementById('cancelDate').value;
+
+            if (!cName || !cDate) {
+                return alert("⚠️ Por favor, ingresa tu nombre y selecciona la fecha de la cita que deseas cancelar.");
+            }
+
+            const data = await getDB();
+            if (!data || !data.citas) {
+                return alert("❌ No se encontraron citas registradas en el sistema.");
+            }
+
+            let targetId = null;
+            let targetTime = "";
+            
+            // Búsqueda robusta filtrando espacios vacíos
+            for (const [id, cita] of Object.entries(data.citas)) {
+                if (cita && cita.date === cDate && cita.name && cita.name.trim().toLowerCase() === cName.toLowerCase()) {
+                    targetId = id;
+                    targetTime = cita.time;
+                    break;
+                }
+            }
+
+            if (!targetId) {
+                return alert("❌ No se encontró ninguna cita que coincida con ese Nombre y Fecha. Verifica los datos.");
+            }
+
+            try {
+                // Borrar directamente del nodo raíz de la cita correspondiente
+                const response = await fetch(DB_URL + `citas/${targetId}.json`, { method: 'DELETE' });
+                
+                if (!response.ok) throw new Error("Error en respuesta HTTP");
+
+                alert("✅ Tu cita ha sido cancelada .");
+                
+                // Limpiar campos de cancelación
+                document.getElementById('cancelName').value = "";
+                
+                // Forzar refresco de las horas y del componente visual local
+                updateAvailableHours();
+
+                // Construcción limpia y redirección transparente de la plantilla del aviso
+                const fechaF = cDate.split('-').reverse().join('/');
+                const cancelMsg = `*AVISO DE CANCELACIÓN DE CITA* ❌%0A*💈EDWARD BARBER STUDIO💈*%0A*──────────────────*%0A%0A*El cliente ha cancelado su espacio desde la plataforma web:*%0A%0A*👤 CLIENTE:* ${cName.toUpperCase()}%0A*📅 FECHA:* ${fechaF}%0A*⏰ HORARIO:* ${targetTime}%0A%0A*──────────────────*%0A*♻️ El espacio ha sido liberado.*`;
+                
+                window.location.href = `https://api.whatsapp.com/send?phone=${PHONE}&text=${cancelMsg}`;
+
+            } catch (error) {
+                alert("❌ Hubo un inconveniente de red al conectar con el servidor. Intenta nuevamente.");
+            }
+        }
+
         function sendInquiryWhatsApp() {
-            const inquiryMsg = `*Estimado Equipo de Edward Barber Studio,* 💈%0A%0A` +
-                               `Me pongo en contacto con ustedes a través de la plataforma web ya que tengo una duda o requerimiento especial con respecto a sus servicios de barbería.%0A%0A` +
-                               `Quedo atento a su respuesta. ¡Muchas gracias!`;
+            const inquiryMsg = `*Estimado Equipo de Edward Barber Studio,* 💈%0A%0AMe pongo en contacto con ustedes a través de la plataforma web ya que tengo una duda o requerimiento especial con respecto a sus servicios de barbería.%0A%0AQuedo atento a su respuesta. ¡Muchas gracias!`;
             window.location.href = `https://api.whatsapp.com/send?phone=${PHONE}&text=${inquiryMsg}`;
         }
 
