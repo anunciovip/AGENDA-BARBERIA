@@ -56,7 +56,7 @@
             font-size: 0.95rem;
         }
 
-        /* CANVAS PARA LA LLUVIA DE BALONES */
+        /* CANVAS PARA EL FONDO DE ESTRELLAS 3D */
         #hacker-canvas {
             position: fixed;
             top: 0;
@@ -65,7 +65,7 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.35;
+            opacity: 0.5;
         }
 
         /* PANTALLA DE BIENVENIDA */
@@ -88,6 +88,28 @@
             animation: borderBottomNeonShift 18s infinite ease-in-out;
             display: flex; justify-content: space-between; align-items: center; 
             position: sticky; top: 0; z-index: 100;
+        }
+
+        /* NUEVO ESTILO PARA EL BOTÓN DE DESCARGA EN EL HEADER */
+        .btn-download-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--c1);
+            font-family: 'Orbitron';
+            font-size: 0.58rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            background: rgba(0, 242, 254, 0.05);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            transition: all 0.3s ease;
+            animation: headerBtnNeonShift 18s infinite ease-in-out;
+        }
+        .btn-download-header:hover {
+            transform: scale(1.05);
+            background: rgba(0, 242, 254, 0.15);
         }
 
         /* --- CONTENEDORES CON EFECTO: 2 SERPIENTES FLUIDAS DE ESQUINA A ESQUINA --- */
@@ -657,6 +679,16 @@
             85.2% { border-bottom-color: var(--c1); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.15); }
         }
 
+        @keyframes headerBtnNeonShift {
+            0%, 100% { border-color: rgba(0, 242, 254, 0.3); color: var(--c1); box-shadow: 0 0 5px rgba(0, 242, 254, 0.1); }
+            14.2% { border-color: rgba(255, 0, 85, 0.3); color: var(--c2); box-shadow: 0 0 5px rgba(255, 0, 85, 0.1); }
+            28.4% { border-color: rgba(0, 255, 153, 0.3); color: var(--c3); box-shadow: 0 0 5px rgba(0, 255, 153, 0.1); }
+            42.6% { border-color: rgba(255, 49, 49, 0.3); color: var(--c4); box-shadow: 0 0 5px rgba(255, 49, 49, 0.1); }
+            56.8% { border-color: rgba(188, 19, 254, 0.3); color: var(--c5); box-shadow: 0 0 5px rgba(188, 19, 254, 0.1); }
+            71% { border-color: rgba(251, 255, 0, 0.3); color: var(--c6); box-shadow: 0 0 5px rgba(251, 255, 0, 0.1); }
+            85.2% { border-color: rgba(0, 242, 254, 0.3); color: var(--c1); box-shadow: 0 0 5px rgba(0, 242, 254, 0.1); }
+        }
+
         @keyframes borderLeftNeonShift {
             0%, 100% { border-left-color: var(--c1); }
             14.2% { border-left-color: var(--c2); }
@@ -714,8 +746,14 @@
 
     <header>
         <h2 style="font-family:'Orbitron'; font-size:0.9rem;">EDWARD BARBER 💈</h2>
-        <!-- ÍCONOS SOCIALES EN EL HEADER -->
-        <div style="display:flex; align-items:center; gap:14px;">
+        
+        <!-- ELEMENTOS DE NAVEGACIÓN Y ACCIONES DEL HEADER -->
+        <div style="display:flex; align-items:center; gap:12px;">
+            <!-- BOTÓN DE DESCARGA APP REPOSICIONADO AQUÍ -->
+            <a href="https://www.mediafire.com/file/q0t3sw4deao609u/BARBERIA-OFICIAL.apk/file" target="_blank" class="btn-download-header">
+                <i class="fas fa-cloud-download-alt"></i> DESCARGAR APP
+            </a>
+            
             <a href="https://www.tiktok.com/@user1520091343737?_r=1&_t=ZS-97A4hIjqpyD" target="_blank" title="TikTok" style="text-decoration:none; display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,0.05); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='scale(1.2)'; this.style.boxShadow='0 0 10px rgba(105,201,208,0.6)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
                 <i class="fab fa-tiktok" style="font-size:1rem; color:#69C9D0; filter: drop-shadow(1px 0 0 #EE1D52);"></i>
             </a>
@@ -890,39 +928,27 @@
         </a>
     </div>
 
-    <!-- =====================================================
-         SECCIÓN REDES SOCIALES — EDWARD BARBER STUDIO
-    ====================================================== -->
+    <!-- SECCIÓN REDES SOCIALES -->
     <div class="social-section-wrapper">
         <p class="social-section-title">
             <span class="hud-bracket">[</span> SÍGUENOS EN REDES <span class="hud-bracket">]</span>
         </p>
         <div class="social-grid">
-
-            <!-- TARJETA TIKTOK -->
             <a href="https://www.tiktok.com/@user1520091343737?_r=1&_t=ZS-97A4hIjqpyD" target="_blank" class="social-card tiktok">
                 <div class="social-live-dot"></div>
-                <div class="social-icon-wrap">
-                    <i class="fab fa-tiktok"></i>
-                </div>
+                <div class="social-icon-wrap"><i class="fab fa-tiktok"></i></div>
                 <div class="social-card-label">TikTok</div>
                 <div class="social-card-handle">@EdwardBarber</div>
                 <div class="social-follow-chip">SÍGUENOS</div>
             </a>
-
-            <!-- TARJETA FACEBOOK -->
             <a href="https://www.facebook.com/share/1D8jThJjW7/?mibextid=wwXIfr" target="_blank" class="social-card facebook">
-                <div class="social-icon-wrap">
-                    <i class="fab fa-facebook-f"></i>
-                </div>
+                <div class="social-icon-wrap"><i class="fab fa-facebook-f"></i></div>
                 <div class="social-card-label">Facebook</div>
                 <div class="social-card-handle">Edward Barber Studio</div>
                 <div class="social-follow-chip">SÍGUENOS</div>
             </a>
-
         </div>
     </div>
-    <!-- FIN REDES SOCIALES -->
 
     <!-- HORARIOS -->
     <div class="cyber-panel" style="padding: 15px; width: 90%; max-width: 430px; margin-bottom: 25px;">
@@ -931,7 +957,7 @@
         <p style="font-size: 0.9rem; color: #ccc;">Sábados: 11:00 AM - 4:00 PM</p>
     </div>
 
-    <!-- SECCIÓN DE CRÉDITOS DEL CREADOR -->
+    <!-- SECCIÓN DE CRÉDITOS -->
     <div class="creator-credits">
         <span class="creator-label">DISEÑO Y DESARROLLO</span>
         <div class="creator-icons">
@@ -954,7 +980,6 @@
         let currentTickerIndex = 0;
         let tickerInterval = null;
 
-        // LLUVIA DE BALONES DE FÚTBOL
         const canvas = document.getElementById('hacker-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -965,40 +990,67 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        const soccerBallSymbol = "⚽";
-        const fontSize = 18;
-        const columns = Math.floor(canvas.width / 50); 
-        const drops = [];
+        // ARREGLO DE ESTRELLAS CON EFECTO DE PROFUNDIDAD (3D)
+        const numStars = 120;
+        const stars = [];
         
-        for (let i = 0; i < columns; i++) {
-            drops[i] = Math.random() * -canvas.height; 
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * canvas.width - canvas.width / 2,
+                y: Math.random() * canvas.height - canvas.height / 2,
+                z: Math.random() * canvas.width,
+                size: Math.random() * 1.5 + 0.5
+            });
         }
 
         function drawHackerRain() {
-            ctx.fillStyle = 'rgba(5, 5, 5, 0.08)'; 
+            // Fondo semitransparente oscuro para crear rastro de movimiento
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.18)'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+            
+            // Obtener dinámicamente el color neón actual del CSS para pintar las estrellas
             const sampleEl = document.querySelector('.dynamic-text');
             let currentRainColor = '#00f2fe';
             if (sampleEl) {
                 currentRainColor = window.getComputedStyle(sampleEl).color;
             }
+            
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
 
-            ctx.fillStyle = currentRainColor;
-            ctx.font = fontSize + 'px sans-serif';
-
-            for (let i = 0; i < drops.length; i++) {
-                if (Math.random() > 0.15) {
-                    ctx.fillText(soccerBallSymbol, i * 50, drops[i]);
+            for (let i = 0; i < stars.length; i++) {
+                const star = stars[i];
+                
+                // Mover la estrella hacia adelante reduciendo su z
+                star.z -= 2.5; 
+                
+                // Si la estrella pasa al observador, reiniciarla al fondo
+                if (star.z <= 0) {
+                    star.z = canvas.width;
+                    star.x = Math.random() * canvas.width - cx;
+                    star.y = Math.random() * canvas.height - cy;
                 }
-                drops[i] += 1.5; 
 
-                if (drops[i] > canvas.height) {
-                    drops[i] = Math.random() * -120;
+                // Proyección 3D clásica a plano 2D
+                const px = (star.x / star.z) * cx + cx;
+                const py = (star.y / star.z) * cy + cy;
+                
+                // Si se sale de los límites de la pantalla, omitir renderizado
+                if (px < 0 || px > canvas.width || py < 0 || py > canvas.height) {
+                    continue;
                 }
+
+                // El tamaño aumenta a medida que se acerca (z disminuye)
+                const size3d = (1 - star.z / canvas.width) * star.size * 3.5;
+                
+                // Dibujar la estrella con un degradado radial o círculo sólido brillante
+                ctx.fillStyle = currentRainColor;
+                ctx.beginPath();
+                ctx.arc(px, py, size3d < 0.5 ? 0.5 : size3d, 0, Math.PI * 2);
+                ctx.fill();
             }
         }
-        setInterval(drawHackerRain, 33); 
+        setInterval(drawHackerRain, 24); 
 
         function startLiveCounter() {
             setInterval(() => {
@@ -1052,7 +1104,6 @@
             if(tickerInterval) clearInterval(tickerInterval);
             const slots = document.querySelectorAll('.ticker-slot');
             if(slots.length <= 1) return;
-            
             currentTickerIndex = 0;
             tickerInterval = setInterval(() => {
                 if(slots[currentTickerIndex]) slots[currentTickerIndex].classList.remove('active');
@@ -1065,11 +1116,9 @@
             const dInput = document.getElementById('uDate').value;
             const select = document.getElementById('uTime');
             const tickerContainer = document.getElementById('tickerContainer');
-            
             if(!dInput) return;
             const day = new Date(dInput + 'T00:00:00').getUTCDay();
             const data = await getDB();
-            
             resetBtn();
             if(day === 0) { 
                 alert("Domingos cerrado"); 
@@ -1077,29 +1126,23 @@
                 tickerContainer.innerHTML = '<div class="ticker-slot active" style="color:red;"><span>DOMINGO</span><span>CERRADO ❌</span></div>';
                 return; 
             }
-            
             let slots = (day >= 1 && day <= 5) ? 
                 ["04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM", "06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM", "08:00 PM", "08:30 PM"] : 
                 ["11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM"];
-            
             select.innerHTML = '<option disabled selected>Selecciona hora</option>';
             tickerContainer.innerHTML = ""; 
-
             slots.forEach((s, idx) => {
                 const busy = data.citas && Object.values(data.citas).some(c => c.date === dInput && c.time === s);
-                
                 let opt = document.createElement('option');
                 opt.value = s; opt.text = busy ? s + " (OCUPADO)" : s; opt.disabled = busy;
                 if(busy) opt.style.color = "#555";
                 select.add(opt);
-
                 let slotDiv = document.createElement('div');
                 slotDiv.className = `ticker-slot ${idx === 0 ? 'active' : ''}`;
                 slotDiv.style.color = busy ? "red" : "#00ffc4";
                 slotDiv.innerHTML = `<span>${s}</span><span>${busy ? 'OCUPADO' : 'LIBRE'}</span>`;
                 tickerContainer.appendChild(slotDiv);
             });
-
             initTicker();
         }
 
@@ -1114,15 +1157,12 @@
             const n = document.getElementById('uName').value;
             const d = document.getElementById('uDate').value;
             const t = document.getElementById('uTime').value;
-
             if(!n || !d || !t || t === "Selecciona hora" || t === "Selecciona la fecha primero") { 
                 return alert("⚠️ Por favor, llena tu nombre, selecciona la fecha y la hora antes de verificar."); 
             }
-            
             const data = await getDB();
             const busy = data.citas && Object.values(data.citas).some(c => c.date === d && c.time === t);
             if(busy) { alert("¡Horario ocupado!"); updateAvailableHours(); return; }
-
             document.getElementById('resMsg').innerText = "✅ DISPONIBLE";
             document.getElementById('btnWa').style.display = "flex";
             document.getElementById('btnCheck').style.display = "none";
@@ -1132,20 +1172,9 @@
             const n = document.getElementById('uName').value;
             const d = document.getElementById('uDate').value;
             const t = document.getElementById('uTime').value;
-            
             if(!n || !d || !t) return alert("Faltan datos para agendar.");
             const fechaF = d.split('-').reverse().join('/');
-            const msg = `*¡RESERVACIÓN CONFIRMADA!* ✅%0A` +
-                        `*💈EDWARD BARBER STUDIO💈*%0A` +
-                        `*──────────────────*%0A%0A` +
-                        `*📋 DETALLES DEL TURNO:*%0A%0A` +
-                        `*👤 CLIENTE:* ${n.toUpperCase()}%0A` +
-                        `*📅 FECHA:* ${fechaF}%0A` +
-                        `*⏰ HORARIO:* ${t}%0A%0A` +
-                        `*──────────────────*%0A` +
-                        `*📍 UBICACIÓN:* Zumpango, Gro.%0A%0A` +
-                        `*✨ ¡Gracias por tu preferencia! Te pedimos puntualidad para brindarte el mejor servicio. ✨*`;
-
+            const msg = `*¡RESERVACIÓN CONFIRMADA!* ✅%0A*💈EDWARD BARBER STUDIO💈*%0A*──────────────────*%0A%0A*📋 DETALLES DEL TURNO:*%0A%0A*👤 CLIENTE:* ${n.toUpperCase()}%0A*📅 FECHA:* ${fechaF}%0A*⏰ HORARIO:* ${t}%0A%0A*──────────────────*%0A*📍 UBICACIÓN:* Zumpango, Gro.%0A%0A*✨ ¡Gracias por tu preferencia! Te pedimos puntualidad para brindarte el mejor servicio. ✨*`;
             try {
                 await fetch(DB_URL + "citas.json", { method: 'POST', body: JSON.stringify({ name: n, date: d, time: t }) });
                 window.location.href = `https://api.whatsapp.com/send?phone=${PHONE}&text=${msg}`;
@@ -1163,7 +1192,6 @@
 
         function openAdmin() { if(prompt("CLAVE:") === PASS) { document.getElementById('admin-panel').classList.add('active'); renderAdmin(); } }
         function closeAdmin() { document.getElementById('admin-panel').classList.remove('active'); }
-        
         async function renderAdmin() {
             const data = await getDB();
             const list = document.getElementById('admin-list');
@@ -1188,7 +1216,6 @@
         }
 
         async function del(id) { await fetch(DB_URL + `citas/${id}.json`, { method: 'DELETE' }); renderAdmin(); }
-        
         function resetBtn() { document.getElementById('btnWa').style.display="none"; document.getElementById('btnCheck').style.display="block"; document.getElementById('resMsg').innerText=""; }
         
         document.getElementById('uDate').setAttribute('min', new Date().toISOString().split('T')[0]);
