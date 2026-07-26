@@ -56,18 +56,6 @@
             font-size: 0.95rem;
         }
 
-        /* CANVAS PARA EL FONDO DE ESTRELLAS 3D */
-        #hacker-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
         /* PANTALLA DE BIENVENIDA */
         #welcome-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
@@ -90,7 +78,6 @@
             position: sticky; top: 0; z-index: 100;
         }
 
-        /* NUEVO ESTILO PARA EL BOTÓN DE DESCARGA EN EL HEADER */
         .btn-download-header {
             display: flex;
             align-items: center;
@@ -112,7 +99,7 @@
             background: rgba(0, 242, 254, 0.15);
         }
 
-        /* --- CONTENEDORES CON EFECTO: 2 SERPIENTES FLUIDAS DE ESQUINA A ESQUINA --- */
+        /* --- CONTENEDORES CON EFECTO: 2 SERPIENTES FLUIDAS MÁS SUTILES Y LENTAS --- */
         .cyber-panel, .business-card-block { 
             width: 90%; max-width: 430px; margin: 20px auto; padding: 20px 16px; 
             background: var(--card-bg);
@@ -120,7 +107,6 @@
             position: relative; 
         }
 
-        /* Estilo base para los bloques individuales de contacto */
         .business-card-block {
             display: flex;
             align-items: center;
@@ -134,7 +120,6 @@
             transform: translateY(-2px);
         }
 
-        /* Diseño de las dos serpientes persiguiéndose */
         .cyber-panel::before,
         .cyber-panel::after,
         .hud-sub-panel::before,
@@ -143,7 +128,7 @@
         .business-card-block::after {
             content: "";
             position: absolute;
-            inset: -3px;
+            inset: -1.5px; /* Tamaño reducido de las serpientes */
             z-index: -1;
             background: conic-gradient(
                 from var(--gradient-angle),
@@ -155,18 +140,16 @@
                 transparent 100%
             );
             border-radius: inherit;
-            animation: rotation_neon 4s linear infinite, panelNeonColorShift 18s infinite ease-in-out;
+            animation: rotation_neon 6s linear infinite, panelNeonColorShift 18s infinite ease-in-out; /* Velocidad ajustada a 6s para un giro normal y fluido */
         }
 
-        /* Brillo difuminado de fondo de las dos serpientes */
         .cyber-panel::after,
         .hud-sub-panel::after,
         .business-card-block::after {
-            filter: blur(10px);
-            opacity: 0.55;
+            filter: blur(6px); /* Brillo más sutil y limpio */
+            opacity: 0.45;
         }
 
-        /* MICRO HUD ADAPTADO */
         .hud-status-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -187,7 +170,7 @@
 
         .hud-sub-panel::before,
         .hud-sub-panel::after {
-            inset: -2px;
+            inset: -1.5px;
         }
 
         .hud-sub-panel h4 {
@@ -244,14 +227,10 @@
         }
 
         #closed-overlay {
-            position: absolute; top: -3px; left: -3px; width: calc(100% + 6px); height: calc(100% + 6px);
+            position: absolute; top: -1.5px; left: -1.5px; width: calc(100% + 3px); height: calc(100% + 3px);
             background: rgba(5, 5, 5, 0.98); display: none; flex-direction: column;
             justify-content: center; align-items: center; z-index: 10; border-radius: 15px;
         }
-
-        /* =====================================================
-           FORMULARIOS MEJORADOS — COMPACTOS Y PRO
-        ====================================================== */
         
         .form-section {
             background: rgba(0, 0, 0, 0.5);
@@ -302,7 +281,6 @@
             outline: none; 
         }
 
-        /* BOTONES */
         .btn-action {
             width: 100%; padding: 12px; background: transparent; 
             border: 2px solid transparent; font-family: 'Orbitron'; cursor: pointer; 
@@ -319,7 +297,6 @@
             font-size: 0.85rem;
         }
 
-        /* BLOQUES DE CONTACTO INDIVIDUALES */
         .business-container-isolated {
             width: 100%;
             margin: 10px auto;
@@ -381,27 +358,6 @@
 
         footer { width: 100%; padding: 30px; text-align: center; opacity: 0.5; font-size: 0.8rem; border-top: 1px solid #151515; margin-top: auto; }
 
-        /* CONTENEDOR VIVA MÉXICO */
-        .patria-container {
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; margin: 0 0 10px 0;
-            background: rgba(255, 255, 255, 0.02); padding: 10px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .flag-image { width: 85px; height: auto; animation: lightWave 3s ease-in-out infinite alternate, tricolor-neon-glow 4s infinite linear; }
-        .soccer-render { width: 24px; height: auto; filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3)); animation: spinBall 9s linear infinite; }
-        .viva-mexico-neon { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1.15rem; letter-spacing: 2px; margin: 1px 0; animation: tricolor-shift 5s infinite linear; }
-
-        .promo-mundial {
-            font-family: 'Rajdhani', sans-serif; font-size: 0.88rem; font-weight: 500; line-height: 1.35; color: #d5d5d5; margin: 5px auto 15px auto;
-            padding: 0 5px 0 12px; max-width: 88%; border-left: 2px solid transparent; text-align: left; letter-spacing: 0.2px;
-            animation: borderLeftNeonShift 18s infinite ease-in-out;
-        }
-        .promo-mundial .frase-principal { font-style: italic; display: block; margin-bottom: 2px; }
-        .promo-mundial .llamado-accion { font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; display: block; animation: textNeonColorShift 18s infinite ease-in-out; }
-
-        /* =====================================================
-           SECCIÓN DE REDES SOCIALES — DISEÑO PRO NEON
-        ====================================================== */
-
         .social-section-wrapper {
             width: 90%;
             max-width: 430px;
@@ -424,7 +380,6 @@
             gap: 12px;
         }
 
-        /* Tarjeta base de red social */
         .social-card {
             position: relative;
             border-radius: 14px;
@@ -444,7 +399,6 @@
             transform: translateY(-4px) scale(1.03);
         }
 
-        /* Brillo de fondo animado al hover */
         .social-card::before {
             content: '';
             position: absolute;
@@ -456,11 +410,10 @@
         }
         .social-card:hover::before { opacity: 1; }
 
-        /* Borde neon giratorio */
         .social-card::after {
             content: '';
             position: absolute;
-            inset: -3px;
+            inset: -1.5px;
             z-index: -1;
             border-radius: 14px;
             background: conic-gradient(
@@ -472,10 +425,9 @@
                 transparent 210%,
                 transparent 100%
             );
-            animation: rotation_neon 3.5s linear infinite;
+            animation: rotation_neon 5s linear infinite;
         }
 
-        /* ---- TikTok ---- */
         .social-card.tiktok {
             --social-color-a: var(--tiktok-1);
             --social-color-b: var(--tiktok-2);
@@ -487,7 +439,6 @@
             box-shadow: 0 0 22px rgba(105, 201, 208, 0.35), 0 0 8px rgba(238, 29, 82, 0.25);
         }
 
-        /* ---- Facebook ---- */
         .social-card.facebook {
             --social-color-a: var(--fb-blue);
             --social-color-b: #4facff;
@@ -499,7 +450,6 @@
             box-shadow: 0 0 22px rgba(24, 119, 242, 0.4);
         }
 
-        /* Ícono contenedor */
         .social-icon-wrap {
             position: relative;
             z-index: 1;
@@ -512,7 +462,6 @@
             font-size: 1.6rem;
         }
 
-        /* TikTok: efecto doble sombra de color característico */
         .social-card.tiktok .social-icon-wrap {
             background: rgba(0,0,0,0.5);
             box-shadow: 2px 0 0 var(--tiktok-1), -2px 0 0 var(--tiktok-2);
@@ -527,7 +476,6 @@
         .social-card.tiktok .social-icon-wrap i { color: #fff; }
         .social-card.facebook .social-icon-wrap i { color: var(--fb-blue); }
 
-        /* Textos de la tarjeta */
         .social-card-label {
             position: relative;
             z-index: 1;
@@ -551,7 +499,6 @@
             line-height: 1.2;
         }
 
-        /* Chip "SÍGUENOS" */
         .social-follow-chip {
             position: relative;
             z-index: 1;
@@ -574,7 +521,6 @@
             color: var(--fb-blue);
         }
 
-        /* Animación glitch de TikTok */
         @keyframes tiktokGlitch {
             0%, 90%, 100% { box-shadow: 2px 0 0 var(--tiktok-1), -2px 0 0 var(--tiktok-2); }
             92% { box-shadow: 4px 0 0 var(--tiktok-1), -4px 0 0 var(--tiktok-2); }
@@ -582,7 +528,6 @@
             96% { box-shadow: 3px 0 0 var(--tiktok-1), -3px 0 0 var(--tiktok-2); }
         }
 
-        /* Pulso de live en tarjeta TikTok */
         .social-live-dot {
             position: absolute;
             top: 10px;
@@ -595,7 +540,6 @@
             z-index: 2;
         }
 
-        /* SECCIÓN DE CRÉDITOS DEL CREADOR - FIRMA PRO */
         .creator-credits {
             width: 100%;
             padding: 20px 0 40px 0;
@@ -651,14 +595,11 @@
             box-shadow: 0 0 15px rgba(255, 49, 49, 0.2);
         }
 
-        /* --- MOTOR DE ANIMACIÓN ULTRA FLUIDO --- */
-
         @keyframes rotation_neon {
             0% { --gradient-angle: 0deg; }
             100% { --gradient-angle: 360deg; }
         }
 
-        /* Transiciones más suaves y fluidas (18s en lugar de 12s) */
         @keyframes panelNeonColorShift {
             0%, 100% { --current-neon-color: var(--c1); }
             14.2% { --current-neon-color: var(--c2); }
@@ -719,21 +660,11 @@
             85.2% { color: var(--c1); }
         }
 
-        @keyframes lightWave { 0% { transform: scale(0.97) rotate(-0.5deg); } 100% { transform: scale(1.03) rotate(0.5deg); } }
-        @keyframes spinBall { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes pulseGlow { 0% { opacity: 0.5; } 100% { opacity: 1; } }
         @keyframes slideInHUD { 0% { transform: translateY(6px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-        @keyframes tricolor-shift { 0%, 100% { color: #00FF66; } 33% { color: #FFFFFF; } 66% { color: #FF2E2E; } }
-        @keyframes tricolor-neon-glow {
-            0%, 100% { filter: drop-shadow(0 0 5px #00FF66) drop-shadow(0 0 12px #00FF66); }
-            33% { filter: drop-shadow(0 0 5px #FFFFFF) drop-shadow(0 0 12px #FFFFFF); }
-            66% { filter: drop-shadow(0 0 5px #FF2E2E) drop-shadow(0 0 12px #FF2E2E); }
-        }
     </style>
 </head>
 <body>
-
-    <canvas id="hacker-canvas"></canvas>
 
     <!-- PANTALLA DE BIENVENIDA -->
     <div id="welcome-screen">
@@ -747,9 +678,7 @@
     <header>
         <h2 style="font-family:'Orbitron'; font-size:0.9rem;">EDWARD BARBER 💈</h2>
         
-        <!-- ELEMENTOS DE NAVEGACIÓN Y ACCIONES DEL HEADER -->
         <div style="display:flex; align-items:center; gap:12px;">
-            <!-- BOTÓN DE DESCARGA APP REPOSICIONADO AQUÍ -->
             <a href="https://www.mediafire.com/file/q0t3sw4deao609u/BARBERIA-OFICIAL.apk/file" target="_blank" class="btn-download-header">
                 <i class="fas fa-cloud-download-alt"></i> DESCARGAR APP
             </a>
@@ -805,31 +734,6 @@
             <i class="fas fa-door-closed" style="font-size: 3rem; margin-bottom: 15px; animation: textNeonColorShift 18s infinite ease-in-out;"></i>
             <h2 class="dynamic-text" style="font-family:'Orbitron';">SERVICIO CERRADO</h2>
             <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">CERRADO TEMPORALMENTE.</p>
-        </div>
-
-        <div class="patria-container">
-            <img class="flag-image" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1f2-1f1fd.png" alt="Bandera de México">
-            <div class="viva-mexico-neon">¡VIVA MÉXICO! 🇲🇽</div>
-            
-            <svg class="soccer-render" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="46" fill="#FAFAFA" stroke="#111" stroke-width="2.5"/>
-                <polygon points="50,34 64,44 59,61 41,61 36,44" fill="#151515" stroke="#111" stroke-width="1.5"/>
-                <line x1="50" y1="34" x2="50" y2="12" stroke="#111" stroke-width="2"/>
-                <line x1="64" y1="44" x2="84" y2="34" stroke="#111" stroke-width="2"/>
-                <line x1="59" y1="61" x2="73" y2="80" stroke="#111" stroke-width="2"/>
-                <line x1="41" y1="61" x2="27" y2="80" stroke="#111" stroke-width="2"/>
-                <line x1="36" y1="44" x2="16" y2="34" stroke="#111" stroke-width="2"/>
-                <polygon points="50,12 38,4 62,4" fill="#151515" stroke="#111" stroke-width="1.5"/>
-                <polygon points="84,34 94,48 88,64 74,54" fill="#151515" stroke="#111" stroke-width="1.5"/>
-                <polygon points="16,34 6,48 12,64 26,54" fill="#151515" stroke="#111" stroke-width="1.5"/>
-                <polygon points="27,80 40,94 60,94 73,80" fill="#151515" stroke="#111" stroke-width="1.5"/>
-            </svg>
-        </div>
-
-        <div class="promo-mundial">
-            <span class="frase-principal">"No te pierdas del mundial sin antes un corte de pelo para verte genial..."</span>
-            <span class="llamado-accion"><i class="fas fa-calendar-alt"></i> Agenda ahora para verte spectacular ...
-            </span>
         </div>
 
         <h3 style="font-family:'Orbitron'; margin-bottom: 10px;">💈 AGENDA TU CITA 💈</h3>
@@ -999,66 +903,6 @@
         let currentTickerIndex = 0;
         let tickerInterval = null;
 
-        const canvas = document.getElementById('hacker-canvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        const numStars = 120;
-        const stars = [];
-        
-        for (let i = 0; i < numStars; i++) {
-            stars.push({
-                x: Math.random() * canvas.width - canvas.width / 2,
-                y: Math.random() * canvas.height - canvas.height / 2,
-                z: Math.random() * canvas.width,
-                size: Math.random() * 1.5 + 0.5
-            });
-        }
-
-        function drawHackerRain() {
-            ctx.fillStyle = 'rgba(5, 5, 5, 0.18)'; 
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            const sampleEl = document.querySelector('.dynamic-text');
-            let currentRainColor = '#00f2fe';
-            if (sampleEl) {
-                currentRainColor = window.getComputedStyle(sampleEl).color;
-            }
-            
-            const cx = canvas.width / 2;
-            const cy = canvas.height / 2;
-
-            for (let i = 0; i < stars.length; i++) {
-                const star = stars[i];
-                star.z -= 2.5; 
-                if (star.z <= 0) {
-                    star.z = canvas.width;
-                    star.x = Math.random() * canvas.width - cx;
-                    star.y = Math.random() * canvas.height - cy;
-                }
-
-                const px = (star.x / star.z) * cx + cx;
-                const py = (star.y / star.z) * cy + cy;
-                
-                if (px < 0 || px > canvas.width || py < 0 || py > canvas.height) {
-                    continue;
-                }
-
-                const size3d = (1 - star.z / canvas.width) * star.size * 3.5;
-                ctx.fillStyle = currentRainColor;
-                ctx.beginPath();
-                ctx.arc(px, py, size3d < 0.5 ? 0.5 : size3d, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-        setInterval(drawHackerRain, 24); 
-
         function startLiveCounter() {
             setInterval(() => {
                 const countObj = document.getElementById('liveUsersCount');
@@ -1191,7 +1035,6 @@
             }
         }
 
-        /* LÓGICA DE CANCELACIÓN AUTOMÁTICA EN LÍNEA E INSTANTÁNEA REVISADA */
         async function processInstantCancellation() {
             const cName = document.getElementById('cancelName').value.trim();
             const cDate = document.getElementById('cancelDate').value;
@@ -1208,7 +1051,6 @@
             let targetId = null;
             let targetTime = "";
             
-            // Búsqueda robusta filtrando espacios vacíos
             for (const [id, cita] of Object.entries(data.citas)) {
                 if (cita && cita.date === cDate && cita.name && cita.name.trim().toLowerCase() === cName.toLowerCase()) {
                     targetId = id;
@@ -1222,20 +1064,15 @@
             }
 
             try {
-                // Borrar directamente del nodo raíz de la cita correspondiente
                 const response = await fetch(DB_URL + `citas/${targetId}.json`, { method: 'DELETE' });
                 
                 if (!response.ok) throw new Error("Error en respuesta HTTP");
 
-                alert("✅ Tu cita ha sido cancelada .");
+                alert("✅ Tu cita ha sido cancelada.");
                 
-                // Limpiar campos de cancelación
                 document.getElementById('cancelName').value = "";
-                
-                // Forzar refresco de las horas y del componente visual local
                 updateAvailableHours();
 
-                // Construcción limpia y redirección transparente de la plantilla del aviso
                 const fechaF = cDate.split('-').reverse().join('/');
                 const cancelMsg = `*AVISO DE CANCELACIÓN DE CITA* ❌%0A*💈EDWARD BARBER STUDIO💈*%0A*──────────────────*%0A%0A*El cliente ha cancelado su espacio desde la plataforma web:*%0A%0A*👤 CLIENTE:* ${cName.toUpperCase()}%0A*📅 FECHA:* ${fechaF}%0A*⏰ HORARIO:* ${targetTime}%0A%0A*──────────────────*%0A*♻️ El espacio ha sido liberado.*`;
                 
