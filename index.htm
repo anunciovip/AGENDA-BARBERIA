@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
@@ -8,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* REGISTRO DE LA PROPIEDAD PARA ANIMAR EL ÁNGULO DE LAS DOS SERPIENTES */
         @property --gradient-angle {
             syntax: "<angle>";
             initial-value: 0deg;
@@ -20,7 +18,6 @@
             --bg-dark: #050505; 
             --card-bg: #0a0a0a;
             
-            /* Colores de la secuencia neón — TRANSICIONES MÁS SUAVES */
             --c1: #00f2fe;
             --c2: #ff0055;
             --c3: #00ff99;
@@ -28,7 +25,6 @@
             --c5: #bc13fe;
             --c6: #fbff00;
 
-            /* Colores de redes sociales */
             --tiktok-1: #69C9D0;
             --tiktok-2: #EE1D52;
             --fb-blue: #1877F2;
@@ -57,7 +53,6 @@
             font-size: 0.95rem;
         }
 
-        /* SPINNER DE CARGA GLOBAL COMPLETO */
         #globalSpinnerOverlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: rgba(5, 5, 5, 0.88);
@@ -77,13 +72,13 @@
             box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
         }
 
-        /* PANTALLA DE BIENVENIDA */
         #welcome-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
                         url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000;
+            transition: transform 0.6s ease, opacity 0.6s ease;
         }
         .hide-splash { transform: translateY(-100%); opacity: 0; pointer-events: none; }
 
@@ -91,6 +86,43 @@
             animation: textNeonColorShift 18s infinite ease-in-out;
         }
         .hud-bracket { font-family: 'Orbitron'; animation: textNeonColorShift 18s infinite ease-in-out; opacity: 0.8; margin: 0 2px; }
+
+        /* TÍTULO 3D MODERNO BARBER SHOP */
+        .3d-barber-title-wrap {
+            margin-top: 30px;
+            margin-bottom: 5px;
+            text-align: center;
+            perspective: 500px;
+        }
+        .title-3d-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 
+                0 1px 0 #ccc,
+                0 2px 0 #c9c9c9,
+                0 3px 0 #bbb,
+                0 4px 0 #b9b9b9,
+                0 5px 0 #aaa,
+                0 6px 1px rgba(0,0,0,.1),
+                0 0 5px rgba(0,0,0,.1),
+                0 1px 3px rgba(0,0,0,.3),
+                0 3px 5px rgba(0,0,0,.2),
+                0 5px 10px rgba(0,0,0,.25),
+                0 10px 10px rgba(0,0,0,.2),
+                0 20px 20px rgba(0,0,0,.15),
+                0 0 15px rgba(0, 242, 254, 0.6);
+            transform: rotateX(10deg);
+            animation: float3d 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes float3d {
+            0% { transform: rotateX(10deg) translateY(0px); }
+            100% { transform: rotateX(15deg) translateY(-8px); }
+        }
 
         header {
             width: 100%; padding: 15px 5%; background: rgba(0, 0, 0, 0.95); 
@@ -120,7 +152,6 @@
             background: rgba(0, 242, 254, 0.15);
         }
 
-        /* --- CONTENEDORES CON EFECTO: 2 SERPIENTES FLUIDAS MÁS SUTILES Y LENTAS --- */
         .cyber-panel, .business-card-block { 
             width: 90%; max-width: 430px; margin: 20px auto; padding: 20px 16px; 
             background: var(--card-bg);
@@ -320,6 +351,29 @@
             border-radius: 6px; font-weight: bold; justify-content: center; align-items: center; gap: 10px; 
             box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); 
             font-size: 0.85rem;
+        }
+
+        .btn-manage-inline {
+            background: rgba(255, 49, 49, 0.1);
+            border: 1px solid #ff3131;
+            color: #ff3131;
+            font-family: 'Orbitron';
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+        .btn-manage-inline:hover {
+            background: rgba(255, 49, 49, 0.25);
+            box-shadow: 0 0 10px rgba(255, 49, 49, 0.4);
         }
 
         .business-container-isolated {
@@ -620,7 +674,6 @@
             box-shadow: 0 0 15px rgba(255, 49, 49, 0.2);
         }
 
-        /* COMPONENTE SPINNER DE CARGA */
         .spinner-loader {
             width: 14px;
             height: 14px;
@@ -707,16 +760,14 @@
 </head>
 <body>
 
-    <!-- OVERLAY SPINNER DE CARGA GLOBAL -->
     <div id="globalSpinnerOverlay">
         <div class="global-spinner-ring"></div>
         <p style="font-family:'Orbitron'; font-size:0.75rem; color:#00f2fe; margin-top:15px; letter-spacing:2px;" id="globalSpinnerMsg">ENTRANDO...</p>
     </div>
 
-    <!-- PANTALLA DE BIENVENIDA -->
     <div id="welcome-screen">
-        <h1 class="dynamic-text" style="font-size: 2.8rem; font-family:'Orbitron';">EDWARD BARBER 💈</h1>
-        <p style="letter-spacing: 3px; margin-bottom: 30px; color: #aaa;">ZUMPANGO DEL RÍO, GRO.</p>
+        <h1 class="dynamic-text" style="font-size: 2.8rem; font-family:'Orbitron'; text-align:center;">EDWARD BARBER 💈</h1>
+        <p style="letter-spacing: 3px; margin-bottom: 30px; color: #aaa; text-align:center;">ZUMPANGO DEL RÍO, GRO.</p>
         <button class="btn-action" style="width:auto; padding:15px 50px;" onclick="enterSystem()">SOLICITAR TURNO</button>
     </div>
 
@@ -740,7 +791,6 @@
         </div>
     </header>
 
-    <!-- PANEL DE ADMINISTRACIÓN (EDUARDO PRIVATE) -->
     <div id="admin-panel">
         <div class="admin-title dynamic-text" style="font-family:'Orbitron'; margin-bottom:20px;">EDUARDO PRIVATE <i class="fas fa-times" onclick="closeAdmin()" style="float:right; cursor:pointer;"></i></div>
         
@@ -753,7 +803,6 @@
         <button id="btnNextClient" onclick="finishProcess()" class="btn-action" style="background:#00f2fe; color:black; margin-bottom:10px;">ATENDER SIGUIENTE</button>
         <button onclick="location.reload()" class="btn-action" style="font-size: 0.7rem; padding: 5px; margin-bottom: 15px;">RECARGAR LA PAGINA WEB</button>
 
-        <!-- SECCIÓN: BLOQUEO / LIBERACIÓN DE HORAS POR BARBERO -->
         <div style="margin-bottom: 20px; padding: 12px; border: 1px solid #ff0055; border-radius: 10px; background: rgba(255, 0, 85, 0.05);">
             <h5 style="font-family:'Orbitron'; font-size:0.7rem; color:#ff0055; margin-bottom:8px;">🔒 BLOQUEO / LIBERAR HORA</h5>
             <div class="form-group" style="margin-bottom: 8px;">
@@ -767,7 +816,32 @@
             </button>
         </div>
 
-        <!-- SECCIÓN: CITAS AGENDADAS POR FECHA -->
+        <div style="margin-bottom: 20px; padding: 12px; border: 1px solid #bc13fe; border-radius: 10px; background: rgba(188, 19, 254, 0.05);">
+            <h5 style="font-family:'Orbitron'; font-size:0.7rem; color:#bc13fe; margin-bottom:8px;">🚫 BLOQUEAR / LIBERAR DÍA ENTERO</h5>
+            <div class="form-group" style="margin-bottom: 8px;">
+                <input type="date" id="adminLockFullDayDate" style="font-size:0.8rem; padding:6px;" onchange="checkAdminFullDayState()">
+            </div>
+            <button id="btnBlockFullDay" onclick="toggleFullDayLockByAdmin()" class="btn-action" style="margin-top:5px; border-color:#bc13fe; color:#bc13fe; padding:8px; font-size:0.7rem;">
+                <i class="fas fa-calendar-times"></i> BLOQUEAR DÍA ENTERO
+            </button>
+        </div>
+
+        <!-- SECCIÓN ADMIN DE FESTIVOS / VACACIONES / RANGOS -->
+        <div style="margin-bottom: 20px; padding: 12px; border: 1px solid #fbff00; border-radius: 10px; background: rgba(251, 255, 0, 0.05);">
+            <h5 style="font-family:'Orbitron'; font-size:0.7rem; color:#fbff00; margin-bottom:8px;">🏖️ FESTIVOS / VACACIONES / RANGOS</h5>
+            <div class="form-group" style="margin-bottom: 6px;">
+                <label style="font-size: 0.6rem; color: #aaa;">DESDE:</label>
+                <input type="date" id="adminHoliStart" style="font-size:0.8rem; padding:6px;">
+            </div>
+            <div class="form-group" style="margin-bottom: 8px;">
+                <label style="font-size: 0.6rem; color: #aaa;">HASTA:</label>
+                <input type="date" id="adminHoliEnd" style="font-size:0.8rem; padding:6px;">
+            </div>
+            <button id="btnHolidaysBlock" onclick="blockRangeHolidaysByAdmin()" class="btn-action" style="margin-top:5px; border-color:#fbff00; color:#fbff00; padding:8px; font-size:0.7rem;">
+                <i class="fas fa-umbrella-beach"></i> BLOQUEAR RANGO DE FECHAS
+            </button>
+        </div>
+
         <div style="margin-bottom: 10px;">
             <h5 style="font-family:'Orbitron'; font-size:0.7rem; color:#00f2fe; margin-bottom:5px;">📅 FILTRAR CITAS POR DÍA</h5>
             <input type="date" id="adminFilterDate" style="font-size:0.8rem; padding:6px; margin-bottom:10px;" onchange="renderAdmin()">
@@ -776,8 +850,12 @@
         <div id="admin-list" style="margin-top:10px;"></div>
     </div>
 
-    <!-- MONITOR LIVE HUD -->
-    <div class="cyber-panel" style="padding: 12px 14px; margin-top: 25px; margin-bottom: 5px;">
+    <!-- TÍTULO 3D MODERNO UBICADO JUSTO ANTES DE LIVE MONITOR -->
+    <div class="3d-barber-title-wrap">
+        <h1 class="title-3d-text">BARBER SHOP</h1>
+    </div>
+
+    <div class="cyber-panel" style="padding: 12px 14px; margin-top: 10px; margin-bottom: 5px;">
         <h3 class="dynamic-text" style="font-family:'Orbitron'; font-weight:700; font-size:0.65rem; text-align: center;"><span class="hud-bracket">[</span> PLATFORM LIVE MONITOR <span class="hud-bracket">]</span></h3>
         <div class="hud-status-container">
             <div class="hud-sub-panel">
@@ -798,7 +876,6 @@
         </div>
     </div>
 
-    <!-- PANEL PRINCIPAL DE RESERVAS -->
     <div class="cyber-panel" id="mainCard">
         <div id="closed-overlay">
             <i class="fas fa-door-closed" style="font-size: 3rem; margin-bottom: 15px; animation: textNeonColorShift 18s infinite ease-in-out;"></i>
@@ -806,9 +883,8 @@
             <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">CERRADO TEMPORALMENTE.</p>
         </div>
 
-        <h3 style="font-family:'Orbitron'; margin-bottom: 10px;">💈 AGENDA TU CITA 💈</h3>
-        
-        <!-- PROTOCOLO DE AGENDAMIENTO DIGITAL -->
+        <h3 style="font-family:'Orbitron'; margin-bottom: 10px; text-align: center;">💈 AGENDA TU CITA 💈</h3>
+
         <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 15px; margin: 20px 0; font-family: 'Rajdhani', sans-serif; backdrop-filter: blur(5px);">
             
             <h4 class="dynamic-text" style="font-family:'Orbitron'; font-size: 0.55rem; margin-bottom: 15px; text-align: center; letter-spacing: 4px; text-transform: uppercase;">
@@ -838,7 +914,6 @@
             </div>
         </div>
 
-        <!-- FORMULARIO COMPACTO Y PRO -->
         <div class="form-section">
             <div class="form-group">
                 <label class="form-label">👤 NOMBRE</label>
@@ -859,6 +934,16 @@
             
             <button class="btn-action" id="btnCheck" onclick="checkDate()">🚀 VERIFICAR DISPONIBILIDAD</button>
             <button onclick="sendToWhatsApp()" class="btn-wa" id="btnWa"><i class="fab fa-whatsapp"></i> AGENDAR Y ENVIAR WHATSAPP</button>
+
+            <!-- BOTÓN PEQUEÑO INTEGRADO EN AGENDADO DE CANCELAR / MODIFICAR CITA CON GUÍA EXPLICATIVA -->
+            <div style="margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 12px; text-align: center;">
+                <p style="font-size: 0.7rem; color: #aaa; margin-bottom: 6px; line-height: 1.2;">
+                    💡 <b>¿Ya tienes una cita?</b> Si deseas cancelar, modificar o cambiar de fecha tu reservación, presiona aquí:
+                </p>
+                <button type="button" class="btn-manage-inline" onclick="scrollToCancelSection()">
+                    <i class="fas fa-edit"></i> CANCELAR / MODIFICAR O CAMBIAR CITA
+                </button>
+            </div>
         </div>
 
         <div style="margin-top: 15px; font-size: 0.8rem; border: 1px dashed #222; padding: 10px; border-radius: 10px; color: #ccc;">
@@ -866,7 +951,6 @@
         </div>
     </div>
 
-    <!-- SECCIÓN DE ATENCIÓN CORPORATIVA -->
     <div class="business-container-isolated">
         <h4 style="font-family:'Orbitron'; font-size:0.75rem; margin-top:25px; margin-bottom:15px; letter-spacing:1px; text-align:center; font-weight:700;">👥 CANALES DE CONTACTO OFICIAL</h4>
         
@@ -902,7 +986,6 @@
         </a>
     </div>
 
-    <!-- SECCIÓN REDES SOCIALES -->
     <div class="social-section-wrapper">
         <p class="social-section-title">
             <span class="hud-bracket">[</span> SÍGUENOS EN REDES <span class="hud-bracket">]</span>
@@ -924,33 +1007,38 @@
         </div>
     </div>
 
-    <!-- HORARIOS -->
     <div class="cyber-panel" style="padding: 15px; width: 90%; max-width: 430px; margin-bottom: 25px;">
         <h4 style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:5px;">HORARIOS DE ATENCIÓN</h4>
         <p style="font-size: 0.9rem; color: #ccc;">Lun-Vie: 4:00 PM - 9:00 PM</p>
         <p style="font-size: 0.9rem; color: #ccc;">Sábados: 11:00 AM - 4:00 PM</p>
     </div>
 
-    <!-- APARTADO DE CANCELACIONES DE CITAS AL INSTANTE -->
-    <div class="cyber-panel" style="padding: 18px 16px; width: 90%; max-width: 430px; margin-bottom: 25px;">
-        <h4 style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:5px; color:#ff3131;">CANCELACION DE CITA</h4>
-        <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 12px; line-height: 1.4;">INGRESA TUS DATOS TAL Y COMO AGENDASTE PARA CANCELAR.</p>
+    <!-- SECCIÓN DE GESTIÓN (CANCELAR / MODIFICAR O CAMBIAR FECHA) -->
+    <div class="cyber-panel" id="cancelSectionBlock" style="padding: 18px 16px; width: 90%; max-width: 430px; margin-bottom: 25px;">
+        <h4 style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:5px; color:#ff3131;">CANCELACIÓN O MODIFICACIÓN DE CITA</h4>
+        <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 12px; line-height: 1.4;">INGRESA TUS DATOS EXACTOS PARA CANCELAR TU CITA O MODIFICAR Y CAMBIAR LA FECHA.</p>
         
         <div class="form-group" style="margin-bottom: 8px;">
             <label class="form-label" style="color: #ff3131;">👤 TU NOMBRE EXACTO</label>
-            <input type="text" id="cancelName" placeholder="Escribe el nombre de la cita">
+            <input type="text" id="cancelName" placeholder="Escribe el nombre registrado">
         </div>
         <div class="form-group" style="margin-bottom: 12px;">
-            <label class="form-label" style="color: #ff3131;">📅 FECHA DE LA CITA</label>
+            <label class="form-label" style="color: #ff3131;">📅 FECHA DE LA CITA ACTUAL</label>
             <input type="date" id="cancelDate">
         </div>
 
-        <button id="btnCancelAppointment" onclick="processInstantCancellation()" class="btn-action" style="margin-top:0; border-color:#ff3131; color:#ff3131; background:rgba(255,49,49,0.03); padding:10px; font-size:0.8rem;">
-            <i class="fas fa-calendar-times"></i> CANCELAR CITA
-        </button>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button id="btnCancelAppointment" onclick="processInstantCancellation()" class="btn-action" style="margin-top:0; border-color:#ff3131; color:#ff3131; background:rgba(255,49,49,0.03); padding:10px; font-size:0.8rem;">
+                <i class="fas fa-calendar-times"></i> CANCELAR CITA
+            </button>
+
+            <!-- OPCIÓN DE MODIFICAR / CAMBIAR FECHA DE CITA -->
+            <button id="btnModifyAppointment" onclick="processAppointmentModification()" class="btn-action" style="margin-top:0; border-color:#00f2fe; color:#00f2fe; background:rgba(0,242,254,0.03); padding:10px; font-size:0.8rem;">
+                <i class="fas fa-calendar-alt"></i> MODIFICAR / CAMBIAR FECHA
+            </button>
+        </div>
     </div>
 
-    <!-- SECCIÓN DE CRÉDITOS -->
     <div class="creator-credits">
         <span class="creator-label">DISEÑO Y DESARROLLO</span>
         <div class="creator-icons">
@@ -973,7 +1061,6 @@
         let currentTickerIndex = 0;
         let tickerInterval = null;
 
-        /* MUESTRA U OCULTA EL SPINNER GLOBAL DE CARGA */
         function showGlobalSpinner(msg = "ENTRANDO...") {
             const overlay = document.getElementById('globalSpinnerOverlay');
             const msgEl = document.getElementById('globalSpinnerMsg');
@@ -986,7 +1073,6 @@
             if(overlay) overlay.style.display = 'none';
         }
 
-        /* UTILIDAD: MOSTRAR / OCULTAR SPINNER EN BOTONES */
         function toggleButtonLoading(btnId, isLoading, originalHtml) {
             const btn = document.getElementById(btnId);
             if (!btn) return;
@@ -1002,10 +1088,20 @@
             }
         }
 
+        function scrollToCancelSection() {
+            const el = document.getElementById('cancelSectionBlock');
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const nameInput = document.getElementById('cancelName');
+                if (nameInput) nameInput.focus();
+            }
+        }
+
         function startLiveCounter() {
             setInterval(() => {
                 const countObj = document.getElementById('liveUsersCount');
-                let current = parseInt(countObj.innerText);
+                if(!countObj) return;
+                let current = parseInt(countObj.innerText) || 1;
                 let change = Math.random() > 0.5 ? 1 : -1;
                 let next = current + change;
                 if(next < 2) next = 3;
@@ -1017,13 +1113,12 @@
         async function enterSystem() {
             showGlobalSpinner("ENTRANDO...");
             const countObj = document.getElementById('liveUsersCount');
-            countObj.innerText = Math.floor(Math.random() * (5 - 3 + 1)) + 3;
+            if(countObj) countObj.innerText = Math.floor(Math.random() * (5 - 3 + 1)) + 3;
             startLiveCounter();
             await loadDefaultDay();
             await syncStatus();
             
-            // Pausa controlada para hacer el spinner del inicio más duradero
-            await new Promise(resolve => setTimeout(resolve, 2500));
+            await new Promise(resolve => setTimeout(resolve, 1500));
             
             document.getElementById('welcome-screen').classList.add('hide-splash');
             hideGlobalSpinner();
@@ -1032,13 +1127,14 @@
         async function getDB() { 
             try {
                 const r = await fetch(DB_URL + ".json"); 
-                return await r.json() || { citas: {}, status: "open", chair: "--" }; 
+                if (!r.ok) throw new Error("Network response failed");
+                const data = await r.json();
+                return data || { citas: {}, status: "open", chair: "--" }; 
             } catch(e) {
                 return { citas: {}, status: "open", chair: "--" };
             }
         }
 
-        /* LIMPIEZA AUTOMÁTICA DE HORAS DUPLICADAS EN BD */
         async function cleanDuplicateAppointments(citas) {
             if (!citas) return {};
             const seen = new Set();
@@ -1075,7 +1171,8 @@
                     btn.innerText = isClosed ? "SISTEMA: CERRADO ❌" : "SISTEMA: ABIERTO ✅";
                     btn.style.color = isClosed ? "#ff3131" : "#0f9";
                 }
-                document.getElementById('monitorCurr').innerText = "Silla: " + (data.chair || "--");
+                const monitor = document.getElementById('monitorCurr');
+                if(monitor) monitor.innerText = "Silla: " + (data.chair || "--");
             } catch (e) {
                 console.log("Error de sincronización.");
             }
@@ -1085,7 +1182,9 @@
             toggleButtonLoading('btnStatusMaster', true);
             const data = await getDB();
             const newStatus = data.status === "open" ? "closed" : "open";
-            await fetch(DB_URL + "status.json", { method: 'PUT', body: JSON.stringify(newStatus) });
+            try {
+                await fetch(DB_URL + "status.json", { method: 'PUT', body: JSON.stringify(newStatus) });
+            } catch(e) {}
             await syncStatus();
             toggleButtonLoading('btnStatusMaster', false);
         }
@@ -1106,7 +1205,7 @@
             const dInput = document.getElementById('uDate').value;
             const select = document.getElementById('uTime');
             const tickerContainer = document.getElementById('tickerContainer');
-            if(!dInput) return;
+            if(!dInput || !select) return;
             
             const day = new Date(dInput + 'T00:00:00').getUTCDay();
             const rawData = await getDB();
@@ -1116,7 +1215,7 @@
             if(day === 0) { 
                 alert("Domingos cerrado"); 
                 select.innerHTML = '<option disabled selected>Cerrado</option>'; 
-                tickerContainer.innerHTML = '<div class="ticker-slot active" style="color:red;"><span>DOMINGO</span><span>CERRADO ❌</span></div>';
+                if(tickerContainer) tickerContainer.innerHTML = '<div class="ticker-slot active" style="color:red;"><span>DOMINGO</span><span>CERRADO ❌</span></div>';
                 return; 
             }
             
@@ -1125,7 +1224,7 @@
                 ["11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM"];
             
             select.innerHTML = '<option disabled selected>Selecciona hora</option>';
-            tickerContainer.innerHTML = ""; 
+            if(tickerContainer) tickerContainer.innerHTML = ""; 
 
             slots.forEach((s, idx) => {
                 const busyCita = citasClean && Object.values(citasClean).find(c => c.date === dInput && c.time === s);
@@ -1150,16 +1249,17 @@
 
                 select.add(opt);
 
-                let slotDiv = document.createElement('div');
-                slotDiv.className = `ticker-slot ${idx === 0 ? 'active' : ''}`;
-                slotDiv.style.color = busy ? "#ff3131" : "#00ffc4";
-                slotDiv.innerHTML = `<span>${s}</span><span>${isBlockedByAdmin ? 'BLOQUEADO' : (busy ? 'OCUPADO' : 'LIBRE')}</span>`;
-                tickerContainer.appendChild(slotDiv);
+                if(tickerContainer) {
+                    let slotDiv = document.createElement('div');
+                    slotDiv.className = `ticker-slot ${idx === 0 ? 'active' : ''}`;
+                    slotDiv.style.color = busy ? "#ff3131" : "#00ffc4";
+                    slotDiv.innerHTML = `<span>${s}</span><span>${isBlockedByAdmin ? 'BLOQUEADO' : (busy ? 'OCUPADO' : 'LIBRE')}</span>`;
+                    tickerContainer.appendChild(slotDiv);
+                }
             });
             initTicker();
         }
 
-        /* VERIFICACIÓN EN TIEMPO REAL AL SELECCIONAR UNA HORA CON SPINNER GLOBAL */
         async function onUserSelectTime() {
             resetBtn();
             const dInput = document.getElementById('uDate').value;
@@ -1187,9 +1287,13 @@
             document.getElementById('uDate').value = localDate;
             document.getElementById('cancelDate').value = localDate;
             document.getElementById('adminLockDate').value = localDate;
+            document.getElementById('adminLockFullDayDate').value = localDate;
             document.getElementById('adminFilterDate').value = localDate;
+            if(document.getElementById('adminHoliStart')) document.getElementById('adminHoliStart').value = localDate;
+            if(document.getElementById('adminHoliEnd')) document.getElementById('adminHoliEnd').value = localDate;
             await updateAvailableHours();
             await updateAdminLockHours();
+            await checkAdminFullDayState();
         }
 
         async function checkDate() {
@@ -1205,7 +1309,6 @@
             const rawData = await getDB();
             const citasClean = await cleanDuplicateAppointments(rawData.citas);
 
-            /* REGLA 1: NO AGENDAR 2 VECES CON EL MISMO NOMBRE (TEXTO DE PRIVACIDAD EXACTO) */
             const userAlreadyHasCita = Object.values(citasClean).some(c => 
                 c.name && c.name.trim().toLowerCase() === n.toLowerCase() && !c.isBlocked
             );
@@ -1216,7 +1319,6 @@
                 return;
             }
 
-            /* REGLA 2: VERIFICAR SI LA HORA YA ESTÁ OCUPADA O DUPLICADA */
             const busy = Object.values(citasClean).some(c => c.date === d && c.time === t);
             if(busy) { 
                 toggleButtonLoading('btnCheck', false);
@@ -1239,7 +1341,6 @@
 
             toggleButtonLoading('btnWa', true);
 
-            /* VERIFICACIÓN FINAL ANTES DE GUARDAR (DOBLE CONTROL CON BD Y PRIVACIDAD) */
             const rawData = await getDB();
             const citasClean = await cleanDuplicateAppointments(rawData.citas);
 
@@ -1330,6 +1431,45 @@
             }
         }
 
+        async function processAppointmentModification() {
+            const cName = document.getElementById('cancelName').value.trim();
+            const cDate = document.getElementById('cancelDate').value;
+
+            if (!cName || !cDate) {
+                return alert("⚠️ Ingresa primero tu Nombre exacto y Fecha de la cita actual para proceder a cambiar la fecha.");
+            }
+
+            toggleButtonLoading('btnModifyAppointment', true);
+
+            const data = await getDB();
+            if (!data || !data.citas) {
+                toggleButtonLoading('btnModifyAppointment', false);
+                return alert("❌ No hay citas en el sistema.");
+            }
+
+            let targetId = null;
+            for (const [id, cita] of Object.entries(data.citas)) {
+                if (cita && cita.date === cDate && cita.name && cita.name.trim().toLowerCase() === cName.toLowerCase() && !cita.isBlocked) {
+                    targetId = id;
+                    break;
+                }
+            }
+
+            if (!targetId) {
+                toggleButtonLoading('btnModifyAppointment', false);
+                return alert("❌ No se encontró ninguna cita que coincida con esos datos.");
+            }
+
+            await fetch(DB_URL + `citas/${targetId}.json`, { method: 'DELETE' });
+
+            toggleButtonLoading('btnModifyAppointment', false);
+            alert("✅ Cita anterior cancelada temporalmente. Ahora ingresa tu nueva Fecha y Hora arriba para confirmar el cambio.");
+            
+            document.getElementById('uName').value = cName;
+            document.getElementById('mainCard').scrollIntoView({ behavior: 'smooth' });
+            updateAvailableHours();
+        }
+
         function sendInquiryWhatsApp() {
             const inquiryMsg = `*Estimado Equipo de Edward Barber Studio,* 💈%0A%0AMe pongo en contacto con ustedes a través de la plataforma web ya que tengo una duda o requerimiento especial con respecto a sus servicios de barbería.%0A%0AQuedo atento a su respuesta. ¡Muchas gracias!`;
             window.location.href = `https://api.whatsapp.com/send?phone=${PHONE}&text=${inquiryMsg}`;
@@ -1346,11 +1486,10 @@
             document.getElementById('admin-panel').classList.remove('active'); 
         }
 
-        /* ACTUALIZA TODAS LAS HORAS (LIBRES, OCUPADAS Y BLOQUEADAS) EN EL PANEL DEL BARBERO */
         async function updateAdminLockHours() {
             const lockDate = document.getElementById('adminLockDate').value;
             const select = document.getElementById('adminLockTime');
-            if(!lockDate) return;
+            if(!lockDate || !select) return;
 
             const day = new Date(lockDate + 'T00:00:00').getUTCDay();
             if(day === 0) {
@@ -1390,11 +1529,12 @@
             checkAdminSelectedSlotState();
         }
 
-        /* ADAPTA EL BOTÓN DEL ADMINISTRADOR SEGÚN EL ESTADO DE LA HORA SELECCIONADA */
         async function checkAdminSelectedSlotState() {
             const lockDate = document.getElementById('adminLockDate').value;
             const lockTime = document.getElementById('adminLockTime').value;
             const btn = document.getElementById('btnBlockHour');
+
+            if(!btn) return;
 
             if(!lockDate || !lockTime || lockTime.includes("Selecciona")) {
                 btn.innerHTML = `<i class="fas fa-lock"></i> SELECCIONA UNA HORA`;
@@ -1418,7 +1558,6 @@
             }
         }
 
-        /* PERMITE AL BARBERO BLOQUEAR O LIBERAR CUALQUIER HORA DIRECTAMENTE */
         async function lockHourByAdmin() {
             const lockDate = document.getElementById('adminLockDate').value;
             const lockTime = document.getElementById('adminLockTime').value;
@@ -1435,12 +1574,10 @@
             const targetEntry = Object.entries(citasClean).find(([id, c]) => c.date === lockDate && c.time === lockTime);
 
             if(targetEntry) {
-                // SI YA EXISTE (OCUPADA O BLOQUEADA), LA LIBERA
                 const targetId = targetEntry[0];
                 await fetch(DB_URL + `citas/${targetId}.json`, { method: 'DELETE' });
                 alert(`🔓 La hora ${lockTime} del día ${lockDate} ha sido LIBERADA con éxito.`);
             } else {
-                // SI ESTÁ LIBRE, LA BLOQUEA
                 await fetch(DB_URL + "citas.json", { 
                     method: 'POST', 
                     body: JSON.stringify({ 
@@ -1456,6 +1593,125 @@
             toggleButtonLoading('btnBlockHour', false);
             await updateAvailableHours();
             await updateAdminLockHours();
+            await checkAdminFullDayState();
+            renderAdmin();
+        }
+
+        async function checkAdminFullDayState() {
+            const dateInput = document.getElementById('adminLockFullDayDate').value;
+            const btn = document.getElementById('btnBlockFullDay');
+            if(!dateInput || !btn) return;
+
+            const rawData = await getDB();
+            const citasClean = await cleanDuplicateAppointments(rawData.citas);
+
+            const hasBlocks = citasClean && Object.values(citasClean).some(c => c.date === dateInput && c.isBlocked === true);
+
+            if (hasBlocks) {
+                btn.innerHTML = `<i class="fas fa-calendar-check"></i> 🔓 LIBERAR / DESBLOQUEAR DÍA ENTERO`;
+                btn.style.borderColor = "#00ff99";
+                btn.style.color = "#00ff99";
+            } else {
+                btn.innerHTML = `<i class="fas fa-calendar-times"></i> 🔒 BLOQUEAR DÍA ENTERO`;
+                btn.style.borderColor = "#bc13fe";
+                btn.style.color = "#bc13fe";
+            }
+        }
+
+        async function toggleFullDayLockByAdmin() {
+            const dateInput = document.getElementById('adminLockFullDayDate').value;
+            if(!dateInput) return alert("⚠️ Selecciona una fecha.");
+
+            const day = new Date(dateInput + 'T00:00:00').getUTCDay();
+            if(day === 0) return alert("⚠️ Los domingos la barbería ya se encuentra cerrada.");
+
+            toggleButtonLoading('btnBlockFullDay', true);
+
+            const rawData = await getDB();
+            const citasClean = await cleanDuplicateAppointments(rawData.citas);
+
+            let slots = (day >= 1 && day <= 5) ? 
+                ["04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM", "06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM", "08:00 PM", "08:30 PM"] : 
+                ["11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM"];
+
+            const existingForDate = citasClean ? Object.entries(citasClean).filter(([id, c]) => c.date === dateInput) : [];
+            const isAnyBlocked = existingForDate.some(([id, c]) => c.isBlocked === true);
+
+            if (isAnyBlocked) {
+                for (const [id, c] of existingForDate) {
+                    if (c.isBlocked) {
+                        await fetch(DB_URL + `citas/${id}.json`, { method: 'DELETE' });
+                    }
+                }
+                alert(`🔓 El día ${dateInput} ha sido LIBERADO completamente.`);
+            } else {
+                for (const s of slots) {
+                    const exists = existingForDate.some(([id, c]) => c.time === s);
+                    if (!exists) {
+                        await fetch(DB_URL + "citas.json", { 
+                            method: 'POST', 
+                            body: JSON.stringify({ 
+                                name: " [BLOQUEADO POR BARBERO]", 
+                                date: dateInput, 
+                                time: s,
+                                isBlocked: true
+                            }) 
+                        });
+                    }
+                }
+                alert(`🔒 El día ${dateInput} ha sido BLOQUEADO por completo.`);
+            }
+
+            toggleButtonLoading('btnBlockFullDay', false);
+            await updateAvailableHours();
+            await updateAdminLockHours();
+            await checkAdminFullDayState();
+            renderAdmin();
+        }
+
+        async function blockRangeHolidaysByAdmin() {
+            const startStr = document.getElementById('adminHoliStart').value;
+            const endStr = document.getElementById('adminHoliEnd').value;
+
+            if(!startStr || !endStr) return alert("⚠️ Selecciona la fecha de inicio y fin para el rango de vacaciones/festivos.");
+
+            let start = new Date(startStr + 'T00:00:00');
+            let end = new Date(endStr + 'T00:00:00');
+
+            if(start > end) return alert("⚠️ La fecha inicial no puede ser mayor que la fecha final.");
+
+            toggleButtonLoading('btnHolidaysBlock', true);
+
+            let curr = new Date(start);
+            while(curr <= end) {
+                let dateInput = curr.toISOString().split('T')[0];
+                let day = curr.getUTCDay();
+
+                if(day !== 0) {
+                    let slots = (day >= 1 && day <= 5) ? 
+                        ["04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM", "06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM", "08:00 PM", "08:30 PM"] : 
+                        ["11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM"];
+
+                    for (const s of slots) {
+                        await fetch(DB_URL + "citas.json", { 
+                            method: 'POST', 
+                            body: JSON.stringify({ 
+                                name: " [BLOQUEADO POR VACACIONES/FESTIVO]", 
+                                date: dateInput, 
+                                time: s,
+                                isBlocked: true
+                            }) 
+                        });
+                    }
+                }
+                curr.setDate(curr.getDate() + 1);
+            }
+
+            toggleButtonLoading('btnHolidaysBlock', false);
+            alert(`🏖️ Rango del ${startStr} al ${endStr} BLOQUEADO por Vacaciones / Festivos.`);
+            await updateAvailableHours();
+            await updateAdminLockHours();
+            await checkAdminFullDayState();
             renderAdmin();
         }
 
@@ -1464,6 +1720,7 @@
             const citasClean = await cleanDuplicateAppointments(rawData.citas);
             const filterDate = document.getElementById('adminFilterDate').value;
             const list = document.getElementById('admin-list');
+            if(!list) return;
             list.innerHTML = "";
 
             if(citasClean && Object.keys(citasClean).length > 0) {
@@ -1506,13 +1763,17 @@
             await fetch(DB_URL + `citas/${id}.json`, { method: 'DELETE' }); 
             updateAvailableHours();
             updateAdminLockHours();
+            checkAdminFullDayState();
             renderAdmin(); 
         }
 
         function resetBtn() { 
-            document.getElementById('btnWa').style.display="none"; 
-            document.getElementById('btnCheck').style.display="flex"; 
-            document.getElementById('resMsg').innerText=""; 
+            const btnWa = document.getElementById('btnWa');
+            const btnCheck = document.getElementById('btnCheck');
+            const resMsg = document.getElementById('resMsg');
+            if(btnWa) btnWa.style.display="none"; 
+            if(btnCheck) btnCheck.style.display="flex"; 
+            if(resMsg) resMsg.innerText=""; 
         }
         
         document.getElementById('uDate').setAttribute('min', new Date().toISOString().split('T')[0]);
