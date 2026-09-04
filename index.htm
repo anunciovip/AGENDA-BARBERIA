@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
@@ -87,41 +88,59 @@
         }
         .hud-bracket { font-family: 'Orbitron'; animation: textNeonColorShift 18s infinite ease-in-out; opacity: 0.8; margin: 0 2px; }
 
-        /* TÍTULO 3D MODERNO BARBER SHOP */
-        .3d-barber-title-wrap {
+        /* TÍTULO 3D MODERNO BARBER SHOP CON PERSPECTIVA HACIA ABAJO Y CAMBIO DE COLOR EN TEXTO */
+        .barber-title-wrap-3d {
             margin-top: 30px;
             margin-bottom: 5px;
             text-align: center;
             perspective: 500px;
         }
+
         .title-3d-text {
             font-family: 'Orbitron', sans-serif;
             font-size: 2.2rem;
             font-weight: 900;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            color: #fff;
-            text-shadow: 
-                0 1px 0 #ccc,
-                0 2px 0 #c9c9c9,
-                0 3px 0 #bbb,
-                0 4px 0 #b9b9b9,
-                0 5px 0 #aaa,
-                0 6px 1px rgba(0,0,0,.1),
-                0 0 5px rgba(0,0,0,.1),
-                0 1px 3px rgba(0,0,0,.3),
-                0 3px 5px rgba(0,0,0,.2),
-                0 5px 10px rgba(0,0,0,.25),
-                0 10px 10px rgba(0,0,0,.2),
-                0 20px 20px rgba(0,0,0,.15),
-                0 0 15px rgba(0, 242, 254, 0.6);
-            transform: rotateX(10deg);
+            transform: rotateX(-12deg);
             animation: float3d 4s ease-in-out infinite alternate;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .text-3d-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #00f2fe 50%, #ff0055 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: barberTextColorShift 8s infinite linear, barberTextGlow 8s infinite linear;
+        }
+
+        .title-3d-text .emoji-pole {
+            -webkit-text-fill-color: initial;
+            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.8));
+            font-size: 2rem;
+        }
+
+        @keyframes barberTextColorShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes barberTextGlow {
+            0% { filter: drop-shadow(0 0 10px #00f2fe) drop-shadow(0 0 20px #00f2fe); }
+            20% { filter: drop-shadow(0 0 10px #ff0055) drop-shadow(0 0 20px #ff0055); }
+            40% { filter: drop-shadow(0 0 10px #00ff99) drop-shadow(0 0 20px #00ff99); }
+            60% { filter: drop-shadow(0 0 10px #bc13fe) drop-shadow(0 0 20px #bc13fe); }
+            80% { filter: drop-shadow(0 0 10px #fbff00) drop-shadow(0 0 20px #fbff00); }
+            100% { filter: drop-shadow(0 0 10px #00f2fe) drop-shadow(0 0 20px #00f2fe); }
         }
 
         @keyframes float3d {
-            0% { transform: rotateX(10deg) translateY(0px); }
-            100% { transform: rotateX(15deg) translateY(-8px); }
+            0% { transform: rotateX(-12deg) translateY(0px); }
+            100% { transform: rotateX(-16deg) translateY(-8px); }
         }
 
         header {
@@ -826,7 +845,6 @@
             </button>
         </div>
 
-        <!-- SECCIÓN ADMIN DE FESTIVOS / VACACIONES / RANGOS -->
         <div style="margin-bottom: 20px; padding: 12px; border: 1px solid #fbff00; border-radius: 10px; background: rgba(251, 255, 0, 0.05);">
             <h5 style="font-family:'Orbitron'; font-size:0.7rem; color:#fbff00; margin-bottom:8px;">🏖️ FESTIVOS / VACACIONES / RANGOS</h5>
             <div class="form-group" style="margin-bottom: 6px;">
@@ -850,9 +868,12 @@
         <div id="admin-list" style="margin-top:10px;"></div>
     </div>
 
-    <!-- TÍTULO 3D MODERNO UBICADO JUSTO ANTES DE LIVE MONITOR -->
-    <div class="3d-barber-title-wrap">
-        <h1 class="title-3d-text">BARBER SHOP</h1>
+    <div class="barber-title-wrap-3d">
+        <h1 class="title-3d-text">
+            <span class="emoji-pole">💈</span>
+            <span class="text-3d-gradient">BARBER SHOP</span>
+            <span class="emoji-pole">💈</span>
+        </h1>
     </div>
 
     <div class="cyber-panel" style="padding: 12px 14px; margin-top: 10px; margin-bottom: 5px;">
@@ -909,7 +930,7 @@
                 
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span class="dynamic-text" style="font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900;">✔️ [04]</span>
-                    <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">🚀 >VERIFICA: Agendar cita y enviar a whatsapp&lt; </span>
+                    <span style="color: #ccc; font-size: 0.75rem; letter-spacing: 0.5px;">🚀 >VERIFICA: Agendar cita y enviar a whatsapp< </span>
                 </div>
             </div>
         </div>
@@ -935,7 +956,6 @@
             <button class="btn-action" id="btnCheck" onclick="checkDate()">🚀 VERIFICAR DISPONIBILIDAD</button>
             <button onclick="sendToWhatsApp()" class="btn-wa" id="btnWa"><i class="fab fa-whatsapp"></i> AGENDAR Y ENVIAR WHATSAPP</button>
 
-            <!-- BOTÓN PEQUEÑO INTEGRADO EN AGENDADO DE CANCELAR / MODIFICAR CITA CON GUÍA EXPLICATIVA -->
             <div style="margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 12px; text-align: center;">
                 <p style="font-size: 0.7rem; color: #aaa; margin-bottom: 6px; line-height: 1.2;">
                     💡 <b>¿Ya tienes una cita?</b> Si deseas cancelar, modificar o cambiar de fecha tu reservación, presiona aquí:
@@ -1013,7 +1033,6 @@
         <p style="font-size: 0.9rem; color: #ccc;">Sábados: 11:00 AM - 4:00 PM</p>
     </div>
 
-    <!-- SECCIÓN DE GESTIÓN (CANCELAR / MODIFICAR O CAMBIAR FECHA) -->
     <div class="cyber-panel" id="cancelSectionBlock" style="padding: 18px 16px; width: 90%; max-width: 430px; margin-bottom: 25px;">
         <h4 style="font-family:'Orbitron'; font-size:0.8rem; margin-bottom:5px; color:#ff3131;">CANCELACIÓN O MODIFICACIÓN DE CITA</h4>
         <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 12px; line-height: 1.4;">INGRESA TUS DATOS EXACTOS PARA CANCELAR TU CITA O MODIFICAR Y CAMBIAR LA FECHA.</p>
@@ -1032,7 +1051,6 @@
                 <i class="fas fa-calendar-times"></i> CANCELAR CITA
             </button>
 
-            <!-- OPCIÓN DE MODIFICAR / CAMBIAR FECHA DE CITA -->
             <button id="btnModifyAppointment" onclick="processAppointmentModification()" class="btn-action" style="margin-top:0; border-color:#00f2fe; color:#00f2fe; background:rgba(0,242,254,0.03); padding:10px; font-size:0.8rem;">
                 <i class="fas fa-calendar-alt"></i> MODIFICAR / CAMBIAR FECHA
             </button>
